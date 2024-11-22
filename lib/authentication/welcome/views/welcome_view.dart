@@ -20,10 +20,6 @@ class WelcomeView extends GetView<WelcomeController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      const Text(
-                        "FACTORY",
-                        style: TextStyle(height: 150),
-                      ),
                       ElevatedButton(
                         onPressed: () {
                           Get.toNamed(AppRoutes.login);

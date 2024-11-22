@@ -1,3 +1,4 @@
+import 'package:aic_lll/app_env.dart';
 import 'package:aic_lll/authentication/models/auth_model.dart';
 import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:dio/dio.dart';
@@ -12,7 +13,7 @@ class SignUpController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final Dio _client = Dio();
-
+  final baseUrl = AppEnv.baseUrl;
   void dispose() {
     cnpjController.dispose();
     businessNameController.dispose();
@@ -22,7 +23,7 @@ class SignUpController extends GetxController {
   }
 
   Future<void> signUp() async {
-    final result = await _client.post("http://10.0.2.2:3000/factories",
+    final result = await _client.post("$baseUrl/factories",
         data: AuthModel(
           businessName: businessNameController.text,
           email: emailController.text,

@@ -12,6 +12,15 @@ class HomeView extends GetView<HomeController> {
         body: Obx(() => SafeArea(
             child: controller.isLoading.value
                 ? const LoadingWidget()
-                : SingleChildScrollView(child: Center()))));
+                : SingleChildScrollView(
+                    child: Center(
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                            onPressed: controller.sendToProduct,
+                            child: const Text("vai cadastrar produto"))
+                      ],
+                    ),
+                  )))));
   }
 }
