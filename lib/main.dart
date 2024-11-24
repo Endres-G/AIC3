@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       getPages: AppPages.pages,
       initialRoute: AppRoutes.splash,
-      theme: ThemeData.dark(),
     );
   }
 }

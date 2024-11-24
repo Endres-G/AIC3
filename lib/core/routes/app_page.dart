@@ -19,7 +19,7 @@ class AppPages {
   static final pages = [
     GetPage(
         name: AppRoutes.splash,
-        page: () => const SplashPage(),
+        page: () => const SplashView(),
         binding: SplashBinding()),
     GetPage(
         name: AppRoutes.welcome,
