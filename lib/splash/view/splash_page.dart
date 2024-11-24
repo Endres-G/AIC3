@@ -23,7 +23,7 @@ class SplashView extends GetView<SplashController> {
           ),
         ),
         child: Center(
-          child: Container(
+          child: SizedBox(
             width: 200,
             height: 200,
             // color: Colors.brown, // Removido para deixar apenas a imagem
