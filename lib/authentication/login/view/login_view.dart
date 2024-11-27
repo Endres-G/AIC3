@@ -51,13 +51,13 @@ class LoginView extends GetView<LoginController> {
                           const SizedBox(
                             height: 40,
                           ),
-                          const CustomTextfield(
-                              title: "Endereço de E-mail", hint: "seu e-mail"),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const CustomTextfield(
-                              title: "Senha", hint: "sua Senha"),
+                          // const CustomTextfield(
+                          //     title: "Endereço de E-mail", hint: "seu e-mail", onClick: () {controller.validForm() ; },),
+                          // const SizedBox(
+                          //   height: 10,
+                          // ),
+                          // const CustomTextfield(
+                          //     title: "Senha", hint: "sua Senha", onClick: () {controller.validForm() ; },),
                           const Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

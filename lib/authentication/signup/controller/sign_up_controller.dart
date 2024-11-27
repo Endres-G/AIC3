@@ -1,6 +1,7 @@
 import 'package:aic_lll/app_env.dart';
 import 'package:aic_lll/authentication/models/auth_model.dart';
 import 'package:aic_lll/core/routes/app_routes.dart';
+import 'package:aic_lll/core/widgets/custom_overlay.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ class SignUpController extends GetxController {
   TextEditingController businessNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   final Dio _client = Dio();
   final baseUrl = AppEnv.baseUrl;
   void dispose() {
@@ -22,21 +25,37 @@ class SignUpController extends GetxController {
     super.dispose();
   }
 
-  Future<void> signUp() async {
-    final result = await _client.post("$baseUrl/factories",
-        data: AuthModel(
-          businessName: businessNameController.text,
-          email: emailController.text,
-          password: passwordController.text,
-          cnpj: cnpjController.text,
-          isActive: true,
-        ).toJson());
+  // void validForm(dynamic value){
+  //   print("vamos validar");
+  //   if(value)
+  // }
 
-    if (result.statusCode == 200 || result.statusCode == 201) {
-      print("logado com sucesso");
-      Get.toNamed(AppRoutes.home);
-    } else {
-      print("erro");
+  Future<void> signUp() async {
+    final cnpj = cnpjController.text;
+    final name = businessNameController.text;
+    final email = emailController.text;
+    final password = passwordController.text;
+    final confirmPassword = confirmPasswordController.text;
+
+    // Chamada para criar conta (exemplo)
+    print("CNPJ: $cnpj, Name: $name, Email: $email, Password: $password");
+    try {
+      final result = await _client.post("$baseUrl/factories",
+          data: AuthModel(
+            businessName: businessNameController.text,
+            email: emailController.text,
+            password: passwordController.text,
+            cnpj: cnpjController.text,
+            isActive: true,
+          ).toJson());
+
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        CustomOverlay.success("Registrado!");
+        Get.toNamed(AppRoutes.home);
+      }
+    } on Exception catch (e) {
+      CustomOverlay.error("Erro ao registrar");
     }
+    ;
   }
 }
