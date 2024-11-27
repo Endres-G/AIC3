@@ -25,11 +25,6 @@ class SignUpController extends GetxController {
     super.dispose();
   }
 
-  // void validForm(dynamic value){
-  //   print("vamos validar");
-  //   if(value)
-  // }
-
   Future<void> signUp() async {
     try {
       final result = await _client.post("$baseUrl/factories",
