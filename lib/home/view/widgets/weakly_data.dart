@@ -13,7 +13,7 @@ class WeaklyDataWidget extends StatelessWidget {
       height: 254,
       decoration: BoxDecoration(
         color: DesignSystemColors.greenChart,
-        borderRadius: BorderRadius.circular(16), // Define o arredondamento
+        borderRadius: BorderRadius.circular(16),
       ),
       child: const Column(
         children: [
