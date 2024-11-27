@@ -31,14 +31,6 @@ class SignUpController extends GetxController {
   // }
 
   Future<void> signUp() async {
-    final cnpj = cnpjController.text;
-    final name = businessNameController.text;
-    final email = emailController.text;
-    final password = passwordController.text;
-    final confirmPassword = confirmPasswordController.text;
-
-    // Chamada para criar conta (exemplo)
-    print("CNPJ: $cnpj, Name: $name, Email: $email, Password: $password");
     try {
       final result = await _client.post("$baseUrl/factories",
           data: AuthModel(
@@ -56,6 +48,5 @@ class SignUpController extends GetxController {
     } on Exception catch (e) {
       CustomOverlay.error("Erro ao registrar");
     }
-    ;
   }
 }

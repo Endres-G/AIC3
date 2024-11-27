@@ -1,16 +1,18 @@
 class AuthModel {
-  final String businessName;
   final String email;
   final String password;
-  final String cnpj;
-  final bool isActive;
+  final String? businessName;
+  final String? cnpj;
+  final bool? isActive;
+  final String userType;
 
   AuthModel({
-    required this.isActive,
-    required this.businessName,
+    this.isActive,
+    this.businessName,
+    this.cnpj,
     required this.email,
     required this.password,
-    required this.cnpj,
+    this.userType = "factory",
   });
 
   // Método para converter o objeto para um mapa JSON
@@ -22,6 +24,10 @@ class AuthModel {
       'cnpj': cnpj,
       'isActive': isActive,
     };
+  }
+
+  Map<String, dynamic> loginToJson() {
+    return {'email': email, 'password': password, 'userType': "factory"};
   }
 
   // Método para criar uma instância a partir de um mapa JSON
