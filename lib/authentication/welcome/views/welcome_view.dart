@@ -1,8 +1,10 @@
 import 'package:aic_lll/authentication/welcome/widget/welcome_appbar.dart';
 import 'package:aic_lll/core/routes/app_routes.dart';
+
 import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/authentication/welcome/controller/welcome_controller.dart';
 import 'package:aic_lll/core/widgets/primary_button.dart';
+import 'package:aic_lll/home/view/widgets/pending_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

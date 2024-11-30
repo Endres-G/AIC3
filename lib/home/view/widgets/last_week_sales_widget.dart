@@ -1,5 +1,6 @@
 import 'package:aic_lll/core/themes/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 class LastWeekSalesWidget extends StatelessWidget {
@@ -8,13 +9,15 @@ class LastWeekSalesWidget extends StatelessWidget {
     required this.value,
     required this.icon,
     required this.text,
-    required this.color,
+    required this.cardColor,
+    required this.iconColor,
   });
 
   final int value;
-  final Icon icon;
+  final String icon; // Caminho do SVG como String
   final String text;
-  final Color color;
+  final Color cardColor;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +26,23 @@ class LastWeekSalesWidget extends StatelessWidget {
       width: 170,
       height: 120,
       decoration: BoxDecoration(
-        color: color,
+        color: cardColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          icon,
+          // Ícone com tamanho fixo
+          SvgPicture.asset(
+            colorFilter: ColorFilter.mode(
+              iconColor, // Substitua pela cor desejada
+              BlendMode.srcIn,
+            ),
+            icon,
+            width: 28, // Largura fixa
+            height: 28, // Altura fixa
+          ),
           const SizedBox(
             height: 12,
           ),

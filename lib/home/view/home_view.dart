@@ -1,8 +1,9 @@
+import 'package:aic_lll/core/themes/app_assets.dart';
 import 'package:aic_lll/core/themes/design_system.dart';
 import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
-import 'package:aic_lll/home/view/widgets/bar_chart.dart';
 import 'package:aic_lll/home/view/widgets/last_week_sales_widget.dart';
+import 'package:aic_lll/home/view/widgets/pending_card.dart';
 import 'package:aic_lll/home/view/widgets/weakly_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,9 +18,9 @@ class HomeView extends GetView<HomeController> {
         () => SafeArea(
           child: controller.isLoading.value
               ? const LoadingWidget()
-              : const SingleChildScrollView(
+              : SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       vertical: 30,
                       horizontal: 16,
                     ),
@@ -27,7 +28,7 @@ class HomeView extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Olá, fulano",
                           style: TextStyle(
                             color: DesignSystemColors.titleTextfield,
@@ -35,7 +36,7 @@ class HomeView extends GetView<HomeController> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Bem vindo de volta!",
                           style: TextStyle(
                             color: DesignSystemColors.textfieldInactiveColor,
@@ -43,10 +44,10 @@ class HomeView extends GetView<HomeController> {
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 12,
                         ),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Column(
@@ -58,29 +59,73 @@ class HomeView extends GetView<HomeController> {
                             Column(
                               children: [
                                 LastWeekSalesWidget(
-                                  color: DesignSystemColors.orangeChartData,
-                                  icon: Icon(
-                                    Icons.monetization_on,
-                                    size: 28,
-                                  ),
-                                  text: "Vendas da ultima semana",
-                                  value: 12,
+                                  value: 1500,
+                                  icon: AppAssets.lastWeekRecipe,
+                                  text: 'Receita da última Semana',
+                                  cardColor: DesignSystemColors.purpleChartData,
+                                  iconColor: DesignSystemColors.purpleChartIcon,
                                 ),
-                                SizedBox(height: 12),
+                                SizedBox(
+                                  height: 12,
+                                ),
                                 LastWeekSalesWidget(
-                                  color: DesignSystemColors.purpleChartData,
-                                  icon: Icon(
-                                    Icons.monetization_on,
-                                    size: 28,
-                                  ),
-                                  text: "Receita da ultima semana",
-                                  value: 512,
+                                  value: 20,
+                                  icon: AppAssets.lastWeekSales,
+                                  text: 'Vendas da última Semana',
+                                  iconColor: DesignSystemColors.orangeChartIcon,
+                                  cardColor: DesignSystemColors.orangeChartData,
                                 ),
                               ],
                             )
                           ],
-                        )
-                        // WeaklyDataWidget(),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Pedidos Pendentes",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  "Ver Todos",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: DesignSystemColors.pendingCardText,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ), // Mantendo o espaçamento entre o título e os cartões
+
+                            // Usando ListView.builder para gerar a lista de PendingCards
+                            ListView.builder(
+                              shrinkWrap:
+                                  true, // Para evitar o erro de overflow
+                              physics:
+                                  const NeverScrollableScrollPhysics(), // Evita rolagem duplicada
+                              itemCount: 8, // Número de itens na lista
+                              itemBuilder: (context, index) {
+                                return PendingCard(
+                                  value: 50,
+                                  id: '123',
+                                  time: DateTime(2024, 11, 30, 8, 30),
+                                  title: 'Example Title',
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
