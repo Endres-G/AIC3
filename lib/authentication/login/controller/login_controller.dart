@@ -15,6 +15,7 @@ class LoginController extends GetxController {
   final Dio _client = Dio();
   final baseUrl = AppEnv.baseUrl;
 
+  @override
   void dispose() {
     //ele limpa os dados da arvore quando fechamos o widget
     cnpjController.dispose();
@@ -35,7 +36,7 @@ class LoginController extends GetxController {
 
       if (result.statusCode == 200 || result.statusCode == 201) {
         CustomOverlay.success("logado!!");
-        Get.toNamed(AppRoutes.home);
+        Get.toNamed(AppRoutes.homePageView);
       }
     } on Exception catch (e) {
       CustomOverlay.error("Erro ao logar!");

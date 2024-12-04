@@ -5,8 +5,8 @@ import 'package:aic_lll/authentication/signup/sign_up_bindings.dart';
 import 'package:aic_lll/authentication/signup/view/sign_up_view.dart';
 import 'package:aic_lll/home/home_bindings.dart';
 import 'package:aic_lll/home/view/home_view.dart';
-import 'package:aic_lll/products/products_binding.dart';
-import 'package:aic_lll/products/view/product_view.dart';
+import 'package:aic_lll/home/home_page_view/home_page_view_binding.dart';
+import 'package:aic_lll/home/home_page_view/view/home_page_view.dart';
 import 'package:aic_lll/splash/splash_binding.dart';
 import 'package:aic_lll/splash/view/splash_page.dart';
 import 'package:aic_lll/authentication/welcome/views/welcome_view.dart';
@@ -40,8 +40,8 @@ class AppPages {
         page: () => const HomeView(),
         binding: HomeBindings()),
     GetPage(
-        name: AppRoutes.product,
-        page: () => const ProductView(),
-        binding: ProductBinding()),
+        name: AppRoutes.homePageView,
+        page: () => HomePageView(),
+        binding: HomeBindings()),
   ];
 }
