@@ -19,4 +19,5 @@ class DesignSystemColors {
 
   static const Color purpleChartIcon = Color(0xffB19FC7);
   static const Color orangeChartIcon = Color(0xffEBC4B0);
+  static const Color pendingCard = Color(0xffEBEBEB);
 }
