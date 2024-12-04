@@ -36,69 +36,87 @@ class HomePageView extends GetView<HomeController> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
+        height: 75,
         color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceAround, // Centraliza os ícones
+        child: SizedBox(
+          height: 60,
+          child: Column(
             children: [
-              // Use Obx somente para os ícones que dependem do currentIndex
-              Obx(() => IconButton(
-                    icon: SvgPicture.asset(
-                      AppAssets.homeIcon,
-                      height: 24,
-                      width: 24,
-                      color: controller.currentIndex.value == 0
-                          ? Colors.blue
-                          : Colors.grey,
+              Container(
+                height: 1,
+                color: Colors.grey,
+                width: double.infinity,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Obx(
+                    () => IconButton(
+                      icon: SvgPicture.asset(
+                        AppAssets.homeIcon,
+                        height: 24,
+                        width: 24,
+                        color: controller.currentIndex.value == 0
+                            ? Colors.blue
+                            : Colors.black,
+                      ),
+                      onPressed: () => _onItemTapped(0),
                     ),
-                    onPressed: () => _onItemTapped(0),
-                  )),
-              Obx(() => IconButton(
-                    icon: SvgPicture.asset(
-                      AppAssets.newProdIcon,
-                      height: 24,
-                      width: 24,
-                      color: controller.currentIndex.value == 1
-                          ? Colors.blue
-                          : Colors.grey,
+                  ),
+                  Obx(
+                    () => IconButton(
+                      icon: SvgPicture.asset(
+                        AppAssets.newProdIcon,
+                        height: 24,
+                        width: 24,
+                        color: controller.currentIndex.value == 1
+                            ? Colors.blue
+                            : Colors.black,
+                      ),
+                      onPressed: () => _onItemTapped(1),
                     ),
-                    onPressed: () => _onItemTapped(1),
-                  )),
-              Obx(() => IconButton(
-                    icon: SvgPicture.asset(
-                      AppAssets.pedidos,
-                      height: 24,
-                      width: 24,
-                      color: controller.currentIndex.value == 2
-                          ? Colors.blue
-                          : Colors.grey,
+                  ),
+                  Obx(
+                    () => IconButton(
+                      icon: SvgPicture.asset(
+                        AppAssets.pedidos,
+                        height: 24,
+                        width: 24,
+                        color: controller.currentIndex.value == 2
+                            ? Colors.blue
+                            : Colors.black,
+                      ),
+                      onPressed: () => _onItemTapped(2),
                     ),
-                    onPressed: () => _onItemTapped(2),
-                  )),
-              Obx(() => IconButton(
-                    icon: SvgPicture.asset(
-                      AppAssets.salesIcon,
-                      height: 24,
-                      width: 24,
-                      color: controller.currentIndex.value == 3
-                          ? Colors.blue
-                          : Colors.grey,
+                  ),
+                  Obx(
+                    () => IconButton(
+                      icon: SvgPicture.asset(
+                        AppAssets.salesIcon,
+                        height: 24,
+                        width: 24,
+                        color: controller.currentIndex.value == 3
+                            ? Colors.blue
+                            : Colors.black,
+                      ),
+                      onPressed: () => _onItemTapped(3),
                     ),
-                    onPressed: () => _onItemTapped(3),
-                  )),
-              Obx(() => IconButton(
-                    icon: SvgPicture.asset(
-                      AppAssets.profileIcon,
-                      height: 24,
-                      width: 24,
-                      color: controller.currentIndex.value == 4
-                          ? Colors.blue
-                          : Colors.grey,
+                  ),
+                  Obx(
+                    () => IconButton(
+                      icon: SvgPicture.asset(
+                        AppAssets.profileIcon,
+                        height: 24,
+                        width: 24,
+                        color: controller.currentIndex.value == 4
+                            ? Colors.blue
+                            : Colors.black,
+                      ),
+                      onPressed: () => _onItemTapped(4),
                     ),
-                    onPressed: () => _onItemTapped(4),
-                  )),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
