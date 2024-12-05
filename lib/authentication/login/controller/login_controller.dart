@@ -2,6 +2,7 @@ import 'package:aic_lll/app_env.dart';
 import 'package:aic_lll/authentication/models/auth_model.dart';
 import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/custom_overlay.dart';
+import 'package:aic_lll/global_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,8 @@ class LoginController extends GetxController {
               .loginToJson());
 
       if (result.statusCode == 200 || result.statusCode == 201) {
+        await Get.find<GlobalController>().saveUserSession(result.data);
+
         CustomOverlay.success("logado!!");
         Get.toNamed(AppRoutes.homePageView);
       }
