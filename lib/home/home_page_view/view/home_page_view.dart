@@ -11,7 +11,6 @@ class HomePageView extends GetView<HomeController> {
 
   final PageController _pageController = PageController();
 
-  // Navega para uma página específica no PageView
   void _onItemTapped(int index) {
     controller.currentIndex.value = index; // Atualiza o índice no controlador
     _pageController.animateToPage(
