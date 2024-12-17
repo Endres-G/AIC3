@@ -1,5 +1,5 @@
 import 'package:aic_lll/core/themes/design_system.dart';
-import 'package:aic_lll/home/models/request_card_model.dart';
+import 'package:aic_lll/home/order_list/models/order_card_model.dart';
 import 'package:flutter/material.dart';
 
 class RequestCard extends StatelessWidget {

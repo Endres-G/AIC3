@@ -1,4 +1,3 @@
-import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {

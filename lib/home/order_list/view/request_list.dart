@@ -1,6 +1,6 @@
 import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
-import 'package:aic_lll/home/models/request_card_model.dart';
+import 'package:aic_lll/home/order_list/models/order_card_model.dart';
 import 'package:aic_lll/home/view/widgets/request_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
