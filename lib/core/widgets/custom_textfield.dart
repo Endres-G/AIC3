@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 class CustomTextfield extends StatefulWidget {
   final String title;
   final String hint;
+  final FormFieldValidator<String>? validator;
+  final TextEditingController? controller; // Adiciona o controlador
 
   const CustomTextfield({
     super.key,
     required this.title,
     required this.hint,
+    this.validator,
+    this.controller, // Permite passar o controlador como parâmetro
   });
 
   @override
@@ -16,7 +20,7 @@ class CustomTextfield extends StatefulWidget {
 }
 
 class _CustomTextfieldState extends State<CustomTextfield> {
-  bool _isObscured = true; // Controla se o texto está oculto ou visível
+  bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +38,10 @@ class _CustomTextfieldState extends State<CustomTextfield> {
         SizedBox(
           width: 323,
           height: 55,
-          child: TextField(
-            obscureText: _isObscured, // Aplica a ocultação do texto
+          child: TextFormField(
+            controller: widget.controller, // Utiliza o controlador passado
+            obscureText: widget.title.contains("Senha") ? _isObscured : false,
+            validator: widget.validator,
             decoration: InputDecoration(
               hintStyle: const TextStyle(
                 fontSize: 18,
@@ -51,16 +57,15 @@ class _CustomTextfieldState extends State<CustomTextfield> {
               focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(
                   color: DesignSystemColors.secundaryBlue,
-                ), // Borda quando habilitado
+                ),
                 borderRadius: BorderRadius.circular(12),
               ),
               suffixIcon: widget.title.contains("Senha")
                   ? IconButton(
                       icon: Icon(
                         _isObscured
-                            ? Icons.remove_red_eye // Ícone de olho contornado
-                            : Icons
-                                .visibility_off, // Ícone de olho com preenchimento
+                            ? Icons.remove_red_eye
+                            : Icons.visibility_off,
                         color: DesignSystemColors.primaryBlue,
                       ),
                       onPressed: () {

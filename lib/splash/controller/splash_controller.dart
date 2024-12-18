@@ -1,5 +1,6 @@
 import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/services/navigation_service.dart';
+import 'package:aic_lll/global_controller.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
@@ -9,10 +10,14 @@ class SplashController extends GetxController {
     super.onInit();
   }
 
-  Future asyncInit() async {
-    print("asynnnn");
+  Future<void> asyncInit() async {
     await Future.delayed(const Duration(seconds: 3));
-
-    NavigationService.pageToOffAllNamed(AppRoutes.welcome);
+    final session = await Get.find<GlobalController>().getUserSession();
+    print(session);
+    if (session != null && session.accessToken.isNotEmpty) {
+      NavigationService.pageToOffAllNamed(AppRoutes.homePageView);
+    } else {
+      NavigationService.pageToOffAllNamed(AppRoutes.welcome);
+    }
   }
 }

@@ -12,6 +12,8 @@ class SignUpView extends GetView<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>(); // Chave global para o formulário
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent, // Torna o fundo transparente
@@ -49,34 +51,94 @@ class SignUpView extends GetView<SignUpController> {
                           const SizedBox(
                             height: 25,
                           ),
-                          const CustomTextfield(
-                              title: "CNPJ", hint: "o CNPJ da Empresa"),
-                          const SizedBox(
-                            height: 10,
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                CustomTextfield(
+                                  title: "CNPJ",
+                                  hint: "o CNPJ da Empresa",
+                                  controller: controller.cnpjController,
+                                  validator: (cnpj) {
+                                    if (cnpj == null || cnpj.isEmpty) {
+                                      return "CNPJ é obrigatório.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 10),
+                                CustomTextfield(
+                                  title: "Nome da Empresa",
+                                  hint: "o nome da Empresa",
+                                  controller: controller.businessNameController,
+                                  validator: (name) {
+                                    if (name == null || name.isEmpty) {
+                                      return "Nome da empresa é obrigatório.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 10),
+                                CustomTextfield(
+                                  title: "Endereço de E-mail",
+                                  hint: "seu e-mail",
+                                  controller: controller.emailController,
+                                  validator: (email) {
+                                    if (email == null || email.isEmpty) {
+                                      return "E-mail é obrigatório.";
+                                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                        .hasMatch(email)) {
+                                      return "Digite um e-mail válido.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 10),
+                                CustomTextfield(
+                                  title: "Senha",
+                                  hint: "sua senha",
+                                  controller: controller
+                                      .passwordController, // Controller para senha
+                                  validator: (password) {
+                                    if (password == null || password.isEmpty) {
+                                      return "Senha é obrigatória.";
+                                    } else if (password.length < 6) {
+                                      return "A senha deve ter no mínimo 6 caracteres.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 10),
+                                CustomTextfield(
+                                  title: "Confirma a Senha",
+                                  hint: "sua senha",
+                                  controller: controller
+                                      .confirmPasswordController, // Controller para confirmação de senha
+                                  validator: (passwordConfirm) {
+                                    if (passwordConfirm == null ||
+                                        passwordConfirm.isEmpty) {
+                                      return "Confirmação de senha é obrigatória.";
+                                    } else if (passwordConfirm !=
+                                        controller.passwordController.text) {
+                                      // Aqui comparamos as senhas
+                                      return "As senhas devem ser iguais.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                          const CustomTextfield(
-                              title: "Nome da Empresa",
-                              hint: "o nome da Empresa"),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const CustomTextfield(
-                              title: "Endereço de E-mail", hint: "seu -email"),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const CustomTextfield(
-                              title: "Senha", hint: "sua senha"),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const CustomTextfield(
-                              title: "Confirma a Senha", hint: "sua senha"),
 
                           const SizedBox(
                               height: 20), // Espaçamento para o botão
                           PrimaryButton(
-                              onClick: controller.signUp,
+                              onClick: () {
+                                if (_formKey.currentState?.validate() ??
+                                    false) {
+                                  controller.signUp();
+                                }
+                              },
                               text: "Criar conta",
                               isGradient: false),
                           Row(

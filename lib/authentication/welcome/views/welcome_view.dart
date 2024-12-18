@@ -1,5 +1,6 @@
 import 'package:aic_lll/authentication/welcome/widget/welcome_appbar.dart';
 import 'package:aic_lll/core/routes/app_routes.dart';
+
 import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/authentication/welcome/controller/welcome_controller.dart';
 import 'package:aic_lll/core/widgets/primary_button.dart';
@@ -24,13 +25,13 @@ class WelcomeView extends GetView<WelcomeController> {
                     children: <Widget>[
                       const WelcomeAppbar(),
                       PrimaryButton(
-                        onClick: () => Get.toNamed(AppRoutes.signUp),
+                        onClick: () => Get.offAndToNamed(AppRoutes.signUp),
                         text: "Criar uma conta",
                         isGradient: true,
                       ),
                       const SizedBox(height: 10),
                       PrimaryButton(
-                        onClick: () => Get.toNamed(AppRoutes.login),
+                        onClick: () => Get.offAndToNamed(AppRoutes.login),
                         text: "Já tenho uma conta",
                         isGradient: true,
                       ),

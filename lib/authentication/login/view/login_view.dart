@@ -11,6 +11,8 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>(); // Chave global para o formulário
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent, // Torna o fundo transparente
@@ -51,13 +53,43 @@ class LoginView extends GetView<LoginController> {
                           const SizedBox(
                             height: 40,
                           ),
-                          const CustomTextfield(
-                              title: "Endereço de E-mail", hint: "seu e-mail"),
-                          const SizedBox(
-                            height: 10,
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                CustomTextfield(
+                                  title: "Endereço de E-mail",
+                                  hint: "seu e-mail",
+                                  controller: controller.emailController,
+                                  validator: (email) {
+                                    if (email == null || email.isEmpty) {
+                                      return "E-mail é obrigatório.";
+                                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                        .hasMatch(email)) {
+                                      return "Digite um e-mail válido.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                CustomTextfield(
+                                  title: "Senha",
+                                  hint: "sua Senha",
+                                  controller: controller.passwordController,
+                                  validator: (password) {
+                                    if (password == null || password.isEmpty) {
+                                      return "Senha é obrigatória.";
+                                    } else if (password.length < 6) {
+                                      return "A senha deve ter no mínimo 6 caracteres.";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                          const CustomTextfield(
-                              title: "Senha", hint: "sua Senha"),
                           const Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -73,7 +105,12 @@ class LoginView extends GetView<LoginController> {
                           const SizedBox(
                               height: 20), // Espaçamento para o botão
                           PrimaryButton(
-                              onClick: controller.login,
+                              onClick: () {
+                                if (_formKey.currentState?.validate() ??
+                                    false) {
+                                  controller.login();
+                                }
+                              },
                               text: "Entrar",
                               isGradient: false)
                         ],
