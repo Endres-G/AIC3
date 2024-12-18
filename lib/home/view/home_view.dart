@@ -1,3 +1,4 @@
+import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/themes/app_assets.dart';
 import 'package:aic_lll/core/themes/design_system.dart';
 import 'package:aic_lll/core/widgets/loading_widget.dart';
@@ -21,13 +22,22 @@ class HomeView extends GetView<HomeController> {
               : SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 30,
+                      // vertical: 30,
+                      // horizontal: 16,
+                      vertical: 10,
                       horizontal: 16,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            //chamada controller que vai deslogar e mandar para a welcome
+                            controller.exitMySession();
+                          },
+                        ),
                         const Text(
                           "Olá, fulano",
                           style: TextStyle(

@@ -13,7 +13,7 @@ class SplashController extends GetxController {
   Future<void> asyncInit() async {
     await Future.delayed(const Duration(seconds: 3));
     final session = await Get.find<GlobalController>().getUserSession();
-
+    print(session);
     if (session != null && session.accessToken.isNotEmpty) {
       NavigationService.pageToOffAllNamed(AppRoutes.homePageView);
     } else {

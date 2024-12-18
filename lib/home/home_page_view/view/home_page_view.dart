@@ -33,6 +33,8 @@ class HomePageView extends GetView<HomeController> {
           HomeView(), // A HomeView é a primeira página
           RequestList(),
           Center(child: Text('Tela 3', style: TextStyle(fontSize: 24))),
+          Center(child: Text('Tela 3', style: TextStyle(fontSize: 24))),
+          Center(child: Text('Tela 3', style: TextStyle(fontSize: 24))),
         ],
       ),
       bottomNavigationBar: BottomAppBar(

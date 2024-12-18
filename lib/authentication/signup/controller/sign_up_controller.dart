@@ -38,7 +38,7 @@ class SignUpController extends GetxController {
 
       if (result.statusCode == 200 || result.statusCode == 201) {
         CustomOverlay.success("Registrado!");
-        Get.toNamed(AppRoutes.home);
+        Get.offAndToNamed(AppRoutes.home);
       }
     } on Exception catch (e) {
       CustomOverlay.error("Erro ao registrar");

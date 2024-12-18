@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+// ignore: depend_on_referenced_packages
 import 'package:equatable/equatable.dart';
 
 class GlobalControllerModel extends Equatable {
