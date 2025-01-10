@@ -1,7 +1,7 @@
 import 'package:aic_lll/core/themes/app_assets.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
-import 'package:aic_lll/home/products/view/create_product.dart';
 import 'package:aic_lll/home/view/home_view.dart';
+import 'package:aic_lll/home/view/products_list.dart';
 import 'package:aic_lll/home/view/request_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -33,7 +33,7 @@ class HomePageView extends GetView<HomeController> {
         children: const [
           HomeView(), // A HomeView é a primeira página
           RequestList(),
-          CreateProduct(), //essa vai ser a de criar produto, possivelmente
+          ProductsList(),
           Center(
               child: Text(
             'Tela 3',
