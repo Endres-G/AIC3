@@ -1,4 +1,5 @@
 class ProductVariationModel {
+  final int? productId;
   final double price;
   final String colorName;
   final String colorHexCode;
@@ -10,6 +11,7 @@ class ProductVariationModel {
   final String image;
 
   ProductVariationModel({
+    this.productId,
     required this.price,
     required this.colorName,
     required this.colorHexCode,
@@ -23,16 +25,29 @@ class ProductVariationModel {
 
   factory ProductVariationModel.fromJson(Map<String, dynamic> json) {
     return ProductVariationModel(
-      price: json['price'].toDouble(),
+      productId: json['productId'],
+      price: _parseToDouble(json['price']),
       colorName: json['colorName'],
       colorHexCode: json['colorHexCode'],
       material: json['material'],
-      length: json['length'].toDouble(),
-      width: json['width'].toDouble(),
-      height: json['height'].toDouble(),
+      length: _parseToDouble(json['length']),
+      width: _parseToDouble(json['width']),
+      height: _parseToDouble(json['height']),
       stock: json['stock'],
       image: json['image'],
     );
+  }
+
+  // Função auxiliar para tratar a conversão de String para Double
+  static double _parseToDouble(dynamic value) {
+    if (value is String) {
+      // Tenta converter para double, se falhar retorna 0.0
+      return double.tryParse(value.replaceAll(',', '.')) ?? 0.0;
+    }
+    if (value is num) {
+      return value.toDouble();
+    }
+    return 0.0;
   }
 
   Map<String, dynamic> toJson() {

@@ -6,6 +6,8 @@ class ProductModel {
   final String description;
   final int categoryId;
   final String status;
+  final DateTime? dateCreated;
+  final DateTime? dateUpdated;
   final List<ProductVariationModel> variations;
 
   ProductModel({
@@ -15,6 +17,8 @@ class ProductModel {
     required this.categoryId,
     required this.status,
     required this.variations,
+    this.dateCreated,
+    this.dateUpdated,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -24,6 +28,8 @@ class ProductModel {
       description: json['description'],
       categoryId: json['categoryId'],
       status: json['status'],
+      dateCreated: DateTime.parse(json['dateCreated']),
+      dateUpdated: DateTime.parse(json['dateUpdated']),
       variations: (json['variations'] as List)
           .map((item) => ProductVariationModel.fromJson(item))
           .toList(),
