@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:aic_lll/app_env.dart';
+import 'package:aic_lll/core/models/global_controller_model.dart';
 import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/custom_overlay.dart';
 import 'package:aic_lll/global_controller.dart';
@@ -20,19 +21,16 @@ class HomeController extends GetxController {
   Rx<bool> isLoading = false.obs;
   RxInt currentIndex = 0.obs; // Índice da página atual
   var selectedColor = Rx<Color>(Colors.blue);
+  Rx<bool> isFetched = false.obs; // Flag para evitar múltiplas requisições
 
   RxList<ProductModel> products = <ProductModel>[].obs;
 
-  // Controladores de texto
   TextEditingController productDiscriptionController = TextEditingController();
   TextEditingController productNameController = TextEditingController();
   TextEditingController statusController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController colorNameController = TextEditingController();
   TextEditingController categoryIdController = TextEditingController();
-
-  // TextEditingController colorHexController = TextEditingController();
-  // TextEditingController propductImageController = TextEditingController();
 
   TextEditingController productMaterialController = TextEditingController();
   TextEditingController productLengthController = TextEditingController();
@@ -48,7 +46,12 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchProducts();
+    // Observa mudanças no índice da página
+    ever(currentIndex, (int index) {
+      if (index == 2 && !isFetched.value) {
+        fetchProducts();
+      }
+    });
   }
 
   // Função para selecionar uma imagem
@@ -137,7 +140,7 @@ class HomeController extends GetxController {
       // Buscando a lista de produtos e armazenando no controlador
       final productList = await getProducts();
       products.assignAll(productList);
-      print(products);
+      isFetched.value = true; // Marca como carregado
     } catch (e) {
       print('Erro ao carregar produtos: $e');
     } finally {
