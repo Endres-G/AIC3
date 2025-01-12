@@ -10,17 +10,24 @@ class GlobalController extends GetxController {
   static const String _keyUserSession = 'user_session';
 
   Future<void> saveUserSession(Map<String, dynamic> session) async {
-    userSession = userSession.copyWith(
-      id: session["id"],
-      businessName: session["businessName"],
-      email: session["email"],
-      profileImage: session["profileImage"],
-      coverImage: session["coverImage"],
-      minOrderValue: session["minOrderValue"],
-    );
+    try {
+      print('Mapa recebido pelo saveUserSession: $session');
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyUserSession, jsonEncode(userSession.toMap()));
+      userSession = userSession.copyWith(
+        businessName: session["businessName"] ?? userSession.businessName,
+        email: session["email"] ?? userSession.email,
+        profileImage: session["profileImage"] ?? userSession.profileImage,
+        coverImage: session["coverImage"] ?? userSession.coverImage,
+      );
+
+      print('Salvando sessão: ${userSession.toMapForSession()}');
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+          _keyUserSession, jsonEncode(userSession.toMapForSession()));
+    } catch (e) {
+      print('Erro ao salvar sessão: $e');
+    }
   }
 
   Future<GlobalControllerModel?> getUserSession() async {

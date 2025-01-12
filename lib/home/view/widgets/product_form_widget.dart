@@ -139,11 +139,14 @@ class ProductFormWidget extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.attach_file),
               title: const Text("Escolha a imagem do produto"),
-              onTap: () => controller.pickImage(),
+              onTap: () =>
+                  controller.pickImage(isProfile: false, isProduct: true),
               trailing: Obx(() {
                 if (controller.image.value == null) {
+                  print("PARECE ERRADO");
                   return const SizedBox();
                 }
+                print("PARECE CERT");
                 return controller.bytes.value != null
                     ? Image.memory(
                         controller.bytes.value!,

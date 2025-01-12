@@ -8,4 +8,5 @@ class AppRoutes {
   static const String home = '/home';
   static const String homePageView = '/page-view';
   static const String createProduct = '/product';
+  static const String editProfile = '/edit-profile';
 }

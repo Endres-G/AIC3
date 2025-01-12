@@ -1,14 +1,15 @@
+import 'dart:convert';
+
+import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/loading_widget.dart';
+import 'package:aic_lll/core/widgets/primary_button.dart';
 import 'package:aic_lll/global_controller.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 
-class MyPerfilView extends GetView<HomeController> {
-  const MyPerfilView({super.key});
+class MyProfileView extends GetView<HomeController> {
+  const MyProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +40,19 @@ class MyPerfilView extends GetView<HomeController> {
                         margin: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 15),
                         child: ListTile(
-                          leading:
-                              // firstVariation != null
-                              //     ? Image.memory(
-                              //         base64Decode(firstVariation
-                              //             .image), // Supondo que a imagem seja codificada em base64
-                              //         width: 50,
-                              //         height: 50,
-                              //         fit: BoxFit.cover,
-                              //       )
-                              // :
-                              const Icon(Icons
+                          leading: Get.find<GlobalController>()
+                                      .userSession
+                                      .profileImage !=
+                                  null
+                              ? Image.memory(
+                                  base64Decode(Get.find<GlobalController>()
+                                      .userSession
+                                      .profileImage!), // Supondo que a imagem seja codificada em base64
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                )
+                              : const Icon(Icons
                                   .image_not_supported), // Imagem do produto ou ícone de erro
                           title: Text(Get.find<GlobalController>()
                               .userSession
@@ -57,8 +60,13 @@ class MyPerfilView extends GetView<HomeController> {
                         ),
                       ),
                       // const Divider(),
-                      const Text(
-                          "opção de finalizar cadastro do user, com foto. banner e valor min de pagamento e oq falta"),
+                      PrimaryButton(
+                        onClick: () => Get.toNamed(AppRoutes.editProfile),
+                        text: "Editar perfil",
+                        isGradient: false,
+                      ),
+                      // const Text(
+                      // "opção de finalizar cadastro do user, com foto. banner e valor min de pagamento e oq falta"),
                     ],
                   ),
                 ),

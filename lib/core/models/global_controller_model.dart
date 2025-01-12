@@ -1,18 +1,17 @@
 import 'dart:convert';
 
-// ignore: depend_on_referenced_packages
 import 'package:equatable/equatable.dart';
 
 class GlobalControllerModel extends Equatable {
-  final int id;
+  final int? id;
   final String? businessName;
   final String? email;
   final String? profileImage;
   final String? coverImage;
-  final double? minOrderValue;
+  final String? minOrderValue;
 
   const GlobalControllerModel({
-    required this.id,
+    this.id,
     this.businessName,
     this.email,
     this.profileImage,
@@ -21,14 +20,22 @@ class GlobalControllerModel extends Equatable {
   });
 
   // Converte o modelo para um mapa (para enviar para API ou salvar no localStorage)
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMapForSession() {
     return {
       'id': id,
       'businessName': businessName,
       'email': email,
       'profileImage': profileImage,
       'coverImage': coverImage,
-      'minOrderValue': minOrderValue,
+    };
+  }
+
+  Map<String, dynamic> toMapForApi() {
+    return {
+      'businessName': businessName,
+      'email': email,
+      'profileImage': profileImage,
+      'coverImage': coverImage,
     };
   }
 
@@ -40,7 +47,7 @@ class GlobalControllerModel extends Equatable {
       email: map['email'],
       profileImage: map['profileImage'],
       coverImage: map['coverImage'],
-      minOrderValue: map['minOrderValue']?.toDouble() ?? 0.0,
+      minOrderValue: map['minOrderValue'] ?? "0.0",
     );
   }
 
@@ -52,13 +59,13 @@ class GlobalControllerModel extends Equatable {
       email: '',
       profileImage: '',
       coverImage: '',
-      minOrderValue: 0.0,
+      minOrderValue: "0.0",
     );
   }
 
   // Retorna o modelo como uma string JSON
   String toMapString() {
-    return jsonEncode(toMap());
+    return jsonEncode(toMapForSession());
   }
 
   // Método para criar uma cópia do modelo com novos valores
@@ -68,7 +75,6 @@ class GlobalControllerModel extends Equatable {
     String? email,
     String? profileImage,
     String? coverImage,
-    double? minOrderValue,
   }) {
     return GlobalControllerModel(
       id: id ?? this.id,
@@ -76,7 +82,6 @@ class GlobalControllerModel extends Equatable {
       email: email ?? this.email,
       profileImage: profileImage ?? this.profileImage,
       coverImage: coverImage ?? this.coverImage,
-      minOrderValue: minOrderValue ?? this.minOrderValue,
     );
   }
 
@@ -87,6 +92,5 @@ class GlobalControllerModel extends Equatable {
         email,
         profileImage,
         coverImage,
-        minOrderValue,
       ];
 }
