@@ -3,10 +3,10 @@ import 'package:aic_lll/authentication/login/login_bindings.dart';
 import 'package:aic_lll/authentication/login/view/login_view.dart';
 import 'package:aic_lll/authentication/signup/sign_up_bindings.dart';
 import 'package:aic_lll/authentication/signup/view/sign_up_view.dart';
-import 'package:aic_lll/home/home_bindings.dart';
+import 'package:aic_lll/home/products/view/create_product.dart';
+import 'package:aic_lll/home/view/home_bindings.dart';
 import 'package:aic_lll/home/view/home_view.dart';
-import 'package:aic_lll/home/home_page_view/home_page_view_binding.dart';
-import 'package:aic_lll/home/home_page_view/view/home_page_view.dart';
+import 'package:aic_lll/home/home_page_view.dart';
 import 'package:aic_lll/splash/splash_binding.dart';
 import 'package:aic_lll/splash/view/splash_page.dart';
 import 'package:aic_lll/authentication/welcome/views/welcome_view.dart';
@@ -43,5 +43,10 @@ class AppPages {
         name: AppRoutes.homePageView,
         page: () => HomePageView(),
         binding: HomeBindings()),
+    GetPage(
+        name: AppRoutes.createProduct,
+        page: () => const CreateProduct(),
+        binding: HomeBindings() //essa vai ser a de criar produto, possivelmente
+        )
   ];
 }

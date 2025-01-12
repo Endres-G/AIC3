@@ -16,11 +16,11 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent, // Torna o fundo transparente
-        elevation: 0, // Remove a sombra da AppBar
+        elevation: 0,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back, // Ícone de voltar
-            color: DesignSystemColors.primaryBlue, // Cor do ícone
+            color: DesignSystemColors.primaryBlue,
           ),
           onPressed: () => Navigator.pop(context), // Volta para a tela anterior
         ),

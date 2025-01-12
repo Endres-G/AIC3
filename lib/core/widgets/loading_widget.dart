@@ -1,3 +1,4 @@
+import 'package:aic_lll/core/themes/design_system.dart';
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatelessWidget {
@@ -7,9 +8,9 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: CircularProgressIndicator(
-        backgroundColor: Colors.amber,
+        backgroundColor: DesignSystemColors.secundaryBlue,
         valueColor: AlwaysStoppedAnimation(
-          Colors.black,
+          Colors.blue,
         ),
       ),
     );

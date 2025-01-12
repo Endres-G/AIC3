@@ -12,8 +12,13 @@ class GlobalController extends GetxController {
   Future<void> saveUserSession(Map<String, dynamic> session) async {
     userSession = userSession.copyWith(
       id: session["id"],
-      accessToken: session["access_token"],
+      businessName: session["businessName"],
+      email: session["email"],
+      profileImage: session["profileImage"],
+      coverImage: session["coverImage"],
+      minOrderValue: session["minOrderValue"],
     );
+
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_keyUserSession, jsonEncode(userSession.toMap()));
   }
