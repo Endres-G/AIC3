@@ -27,6 +27,12 @@ class EditProfileView extends GetView<HomeController> {
                   child: Center(
                     child: Column(
                       children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
                         Form(
                           key: formProfileKey,
                           child: Column(

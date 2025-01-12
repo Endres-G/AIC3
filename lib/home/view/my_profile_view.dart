@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/loading_widget.dart';
-import 'package:aic_lll/core/widgets/primary_button.dart';
 import 'package:aic_lll/global_controller.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -21,21 +20,9 @@ class MyProfileView extends GetView<HomeController> {
               : SingleChildScrollView(
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.arrow_back),
-                            onPressed: () {
-                              //chamada controller que vai deslogar e mandar para a welcome
-                              controller.exitMySession();
-                            },
-                          ),
-                        ],
-                      ),
+                      // Substituindo o Row e IconButton por ListTiles
                       Card(
                         color: Colors.transparent, // Remove o fundo do card
-
                         elevation: 0,
                         margin: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 15),
@@ -59,14 +46,22 @@ class MyProfileView extends GetView<HomeController> {
                               .businessName!),
                         ),
                       ),
-                      // const Divider(),
-                      PrimaryButton(
-                        onClick: () => Get.toNamed(AppRoutes.editProfile),
-                        text: "Editar perfil",
-                        isGradient: false,
+
+                      // ListTile para editar perfil
+                      ListTile(
+                        leading: const Icon(Icons.edit),
+                        title: const Text("Editar perfil"),
+                        onTap: () => Get.toNamed(AppRoutes.editProfile),
                       ),
-                      // const Text(
-                      // "opção de finalizar cadastro do user, com foto. banner e valor min de pagamento e oq falta"),
+
+                      // ListTile para sair da conta
+                      ListTile(
+                        leading: const Icon(Icons.exit_to_app),
+                        title: const Text("Sair da conta"),
+                        onTap: () => controller.exitMySession(),
+                      ),
+
+                      // Opções de ações podem continuar aqui, como o PrimaryButton
                     ],
                   ),
                 ),

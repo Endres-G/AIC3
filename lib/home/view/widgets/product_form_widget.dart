@@ -88,7 +88,6 @@ class ProductFormWidget extends StatelessWidget {
               hint: "status",
               controller: controller.statusController,
             ),
-            const SizedBox(height: 50),
             CustomTextfield(
               title: "Preço",
               hint: "Preço",
@@ -136,13 +135,14 @@ class ProductFormWidget extends StatelessWidget {
               hint: "Estoque",
               controller: controller.productStockController,
             ),
+            const SizedBox(height: 20),
             ListTile(
               leading: const Icon(Icons.attach_file),
               title: const Text("Escolha a imagem do produto"),
               onTap: () =>
                   controller.pickImage(isProfile: false, isProduct: true),
               trailing: Obx(() {
-                if (controller.image.value == null) {
+                if (controller.productImage.value == null) {
                   print("PARECE ERRADO");
                   return const SizedBox();
                 }
@@ -155,6 +155,7 @@ class ProductFormWidget extends StatelessWidget {
                     : const SizedBox();
               }),
             ),
+            const SizedBox(height: 20),
             PrimaryButton(
               onClick: () => controller.createProduct(),
               text: "ENVIAR",

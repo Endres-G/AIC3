@@ -141,12 +141,17 @@ class HomeController extends GetxController {
       );
 
       if (result.statusCode == 200 || result.statusCode == 201) {
-        CustomOverlay.success("cadastrado!!");
-        clearForm();
-        Get.back();
+        CustomOverlay.success("Produto cadastrado!");
+
+        // Adiciona o produto recém-criado à lista de produtos
+        final newProduct = ProductModel.fromJson(result.data);
+        products.add(newProduct); // Adiciona o produto à lista
+
+        clearForm(); // Limpa os campos do formulário
+        Get.back(); // Volta para a tela anterior
       }
     } on Exception catch (e) {
-      CustomOverlay.error("Erro cadastrar produto!");
+      CustomOverlay.error("Erro ao cadastrar produto!");
     }
   }
 
