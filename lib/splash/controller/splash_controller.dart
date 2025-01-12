@@ -25,22 +25,22 @@ class SplashController extends GetxController {
       print(result.data);
       print(result.statusCode);
       if (result.statusCode == 200 || result.statusCode == 201) {
-        CustomOverlay.success("Informações carregadas com sucesso!");
+        // CustomOverlay.success("Informações carregadas com sucesso!");
         await Get.find<GlobalController>().saveUserSession(result.data);
         return GlobalControllerModel.fromMap(result.data);
       } else {
-        // Caso o status não seja 200 ou 201, pode retornar uma instância vazia ou algo mais informativo.
-        CustomOverlay.error(
-            "Erro ao carregar as informações. Status: ${result.statusCode}");
+        // // Caso o status não seja 200 ou 201, pode retornar uma instância vazia ou algo mais informativo.
+        // CustomOverlay.error(
+        //     "Erro ao carregar as informações. Status: ${result.statusCode}");
         return GlobalControllerModel.empty();
       }
     } on Exception catch (e) {
       // Captura de exceções genéricas (como erros de rede)
-      CustomOverlay.error("Erro ao carregar as informações: $e");
+      // CustomOverlay.error("Erro ao carregar as informações: $e");
       return GlobalControllerModel.empty();
     } catch (e) {
       // Captura de exceções imprevistas
-      CustomOverlay.error("Erro desconhecido ao carregar as informações.");
+      // CustomOverlay.error("Erro desconhecido ao carregar as informações.");
       return GlobalControllerModel.empty();
     }
   }
