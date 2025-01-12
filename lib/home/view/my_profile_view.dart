@@ -20,33 +20,38 @@ class MyProfileView extends GetView<HomeController> {
               : SingleChildScrollView(
                   child: Column(
                     children: [
-                      // Substituindo o Row e IconButton por ListTiles
                       Card(
-                        color: Colors.transparent, // Remove o fundo do card
+                        color: Colors.transparent,
                         elevation: 0,
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 15),
                         child: ListTile(
                           leading: Get.find<GlobalController>()
                                       .userSession
                                       .profileImage !=
                                   null
-                              ? Image.memory(
-                                  base64Decode(Get.find<GlobalController>()
-                                      .userSession
-                                      .profileImage!), // Supondo que a imagem seja codificada em base64
-                                  width: 50,
-                                  height: 50,
-                                  fit: BoxFit.cover,
+                              ? ClipOval(
+                                  child: Image.memory(
+                                    base64Decode(
+                                      Get.find<GlobalController>()
+                                          .userSession
+                                          .profileImage!,
+                                    ),
+                                    width: 60,
+                                    height: 60,
+                                    fit: BoxFit.cover,
+                                  ),
                                 )
-                              : const Icon(Icons
-                                  .image_not_supported), // Imagem do produto ou ícone de erro
-                          title: Text(Get.find<GlobalController>()
-                              .userSession
-                              .businessName!),
+                              : const Icon(Icons.image_not_supported),
+                          title: Text(
+                            Get.find<GlobalController>()
+                                .userSession
+                                .businessName!,
+                            style: const TextStyle(fontSize: 24),
+                          ),
                         ),
                       ),
-
+                      const SizedBox(
+                        height: 30,
+                      ),
                       // ListTile para editar perfil
                       ListTile(
                         leading: const Icon(Icons.edit),
@@ -56,11 +61,20 @@ class MyProfileView extends GetView<HomeController> {
 
                       // ListTile para sair da conta
                       ListTile(
+                        leading: const Icon(Icons.payment),
+                        title: const Text("Métodos de pagamento"),
+                        onTap: () => print("Métodos de pagamento"),
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.delivery_dining),
+                        title: const Text("Métodos de entrega"),
+                        onTap: () => print("Métodos de entrega"),
+                      ),
+                      ListTile(
                         leading: const Icon(Icons.exit_to_app),
                         title: const Text("Sair da conta"),
                         onTap: () => controller.exitMySession(),
                       ),
-
                       // Opções de ações podem continuar aqui, como o PrimaryButton
                     ],
                   ),

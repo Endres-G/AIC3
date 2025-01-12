@@ -3,12 +3,9 @@ import 'package:aic_lll/core/themes/design_system.dart';
 import 'package:aic_lll/core/widgets/custom_textfield.dart';
 import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/core/widgets/primary_button.dart';
-import 'package:aic_lll/global_controller.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 class EditProfileView extends GetView<HomeController> {
   const EditProfileView({super.key});
@@ -27,23 +24,37 @@ class EditProfileView extends GetView<HomeController> {
                   child: Center(
                     child: Column(
                       children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: () {
-                            Get.back();
-                          },
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.arrow_back),
+                              onPressed: () {
+                                Get.back();
+                              },
+                            ),
+                          ],
                         ),
+                        SizedBox(height: 30),
+                        const Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Edite seu perfil",
+                              style: TextStyle(
+                                  color: DesignSystemColors.primaryBlue,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30),
                         Form(
                           key: formProfileKey,
                           child: Column(
                             children: [
-                              const Text(
-                                "Edite seu perfil",
-                                style: TextStyle(
-                                    color: DesignSystemColors.primaryBlue,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w600),
-                              ),
                               CustomTextfield(
                                 title: "Endereço de E-mail",
                                 hint: "seu e-mail",
@@ -64,6 +75,7 @@ class EditProfileView extends GetView<HomeController> {
                                 hint: "nome da empresa",
                                 controller: controller.businessNameController,
                               ),
+                              SizedBox(height: 20),
                               // Imagem de Perfil
                               ListTile(
                                 leading: const Icon(Icons.attach_file),
@@ -85,6 +97,7 @@ class EditProfileView extends GetView<HomeController> {
                                       : const SizedBox();
                                 }),
                               ),
+                              SizedBox(height: 15),
                               // Imagem de Banner
                               ListTile(
                                 leading: const Icon(Icons.attach_file),
@@ -106,6 +119,7 @@ class EditProfileView extends GetView<HomeController> {
                                       : const SizedBox();
                                 }),
                               ),
+                              SizedBox(height: 30),
                               PrimaryButton(
                                   onClick: () => controller.patchProfile(
                                       GlobalControllerModel(

@@ -49,14 +49,11 @@ class HomeController extends GetxController {
   final ImagePicker _picker = ImagePicker();
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    // Observa mudanças no índice da página
-    ever(currentIndex, (int index) {
-      if (currentIndex.value == 2 && !isFetched.value) {
-        fetchProducts();
-      }
-    });
+    if (products.isEmpty) {
+      fetchProducts();
+    }
   }
 
   Rx<Uint8List?> profileImage = Rx<Uint8List?>(null);
