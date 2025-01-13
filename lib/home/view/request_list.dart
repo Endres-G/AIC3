@@ -17,16 +17,30 @@ class RequestList extends GetView<HomeController> {
           child: controller.isLoading.value
               ? const LoadingWidget()
               : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      RequestCard(
-                        requestCardModel: RequestCardModel(
-                            pendingDay: DateTime(1222),
-                            pendingId: "pendingId",
-                            client: "asd",
-                            totalValue: 123),
-                      )
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Lista de pedidos",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w900),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        RequestCard(
+                          requestCardModel: RequestCardModel(
+                              pendingDay: DateTime(1222),
+                              pendingId: "pendingId",
+                              client: "asd",
+                              totalValue: 123),
+                        )
+                      ],
+                    ),
                   ),
                 ),
         ),

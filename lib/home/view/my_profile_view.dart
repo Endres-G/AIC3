@@ -12,6 +12,12 @@ class MyProfileView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final profileImage = Get.find<GlobalController>().userSession.profileImage;
+    final businessName = Get.find<GlobalController>().userSession.businessName;
+    final bannerImage = Get.find<GlobalController>()
+        .userSession
+        .coverImage; // Adicionando o banner
+
     return Scaffold(
       body: Obx(
         () => SafeArea(
@@ -23,30 +29,10 @@ class MyProfileView extends GetView<HomeController> {
                       Card(
                         color: Colors.transparent,
                         elevation: 0,
-                        child: ListTile(
-                          leading: Get.find<GlobalController>()
-                                      .userSession
-                                      .profileImage !=
-                                  null
-                              ? ClipOval(
-                                  child: Image.memory(
-                                    base64Decode(
-                                      Get.find<GlobalController>()
-                                          .userSession
-                                          .profileImage!,
-                                    ),
-                                    width: 60,
-                                    height: 60,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : const Icon(Icons.image_not_supported),
-                          title: Text(
-                            Get.find<GlobalController>()
-                                .userSession
-                                .businessName!,
-                            style: const TextStyle(fontSize: 24),
-                          ),
+                        child: BannerTile(
+                          bannerImage: bannerImage,
+                          profileImage: profileImage,
+                          businessName: businessName ?? "Sem Nome",
                         ),
                       ),
                       const SizedBox(
@@ -81,6 +67,76 @@ class MyProfileView extends GetView<HomeController> {
                 ),
         ),
       ),
+    );
+  }
+}
+
+class BannerTile extends StatelessWidget {
+  final String? bannerImage;
+  final String? profileImage;
+  final String businessName;
+
+  const BannerTile({
+    Key? key,
+    required this.bannerImage,
+    required this.profileImage,
+    required this.businessName,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Imagem do banner
+        if (bannerImage != null)
+          Image.memory(
+            base64Decode(bannerImage!),
+            width: double.infinity,
+            height: 150,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return const Icon(
+                Icons.broken_image,
+                size: 150,
+              );
+            },
+          )
+        else
+          Container(
+            width: double.infinity,
+            height: 150,
+            color: Colors.grey[300],
+            child: const Icon(
+              Icons.broken_image,
+              size: 150,
+              color: Colors.grey,
+            ),
+          ),
+
+        // Imagem do perfil e nome do negócio
+        ListTile(
+          leading: profileImage != null
+              ? ClipOval(
+                  child: Image.memory(
+                    base64Decode(profileImage!),
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(
+                        Icons.image_not_supported_outlined,
+                        size: 50,
+                      );
+                    },
+                  ),
+                )
+              : const Icon(Icons.image_not_supported, size: 60),
+          title: Text(
+            businessName,
+            style: const TextStyle(fontSize: 24),
+          ),
+        ),
+      ],
     );
   }
 }

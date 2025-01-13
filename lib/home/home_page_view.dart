@@ -44,7 +44,7 @@ class HomePageView extends GetView<HomeController> {
           ProductsList(),
           Center(
               child: Text(
-            'Tela 3',
+            'Tela dos grafivcos',
             style: TextStyle(fontSize: 50),
           )),
           MyProfileView(),

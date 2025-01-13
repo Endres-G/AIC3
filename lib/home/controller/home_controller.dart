@@ -41,6 +41,10 @@ class HomeController extends GetxController {
   TextEditingController businessNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
+  Rx<String?> base64ProfileImage = Rx<String?>(null);
+  Rx<String?> base64BannerImage = Rx<String?>(null);
+  Rx<String?> base64ProductImage = Rx<String?>(null);
+
   Rx<File?> image = Rx<File?>(null);
   Rx<String?> base64Image = Rx<String?>(null);
   Rx<Uint8List?> bytesProfileImg = Rx<Uint8List?>(null);
@@ -66,23 +70,26 @@ class HomeController extends GetxController {
     final XFile? pickedFile =
         await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      // Lê os bytes da imagem e converte para Base64
       List<int> imageBytes = File(pickedFile.path).readAsBytesSync();
-      base64Image.value = base64Encode(imageBytes);
-      debugPrint(base64Image.value); // Imprime o Base64
 
-      // Converte Base64 para bytes para mostrar a imagem descodificada
-      Uint8List decodedBytes = base64Decode(base64Image.value!);
-      bytes.value = decodedBytes;
-
-      // Atualiza as imagens dependendo de qual foi escolhida
+      // Atualiza as imagens dependendo do tipo selecionado
       if (isProfile && !isProduct) {
-        profileImage.value = decodedBytes; // Salva como imagem de perfil
+        base64ProfileImage.value = base64Encode(imageBytes);
+        Uint8List decodedBytes = base64Decode(base64ProfileImage.value!);
+
+        profileImage.value = decodedBytes;
       } else if (!isProfile && !isProduct) {
-        bannerImage.value = decodedBytes; // Salva como imagem de banner
-      } else {
-        productImage.value = decodedBytes; // Salva como imagem de produto
+        base64BannerImage.value = base64Encode(imageBytes);
+        Uint8List decodedBytes = base64Decode(base64BannerImage.value!);
+        bannerImage.value = decodedBytes;
+      } else if (isProduct) {
+        base64ProductImage.value = base64Encode(imageBytes);
+        Uint8List decodedBytes = base64Decode(base64ProductImage.value!);
+        productImage.value = decodedBytes;
       }
+
+      // Atualiza a imagem selecionada
+      image.value = File(pickedFile.path);
     }
   }
 
@@ -191,12 +198,11 @@ class HomeController extends GetxController {
       final dataToSend = model
           .copyWith(
             id: Get.find<GlobalController>().userSession.id,
-            profileImage: base64Image.value ?? model.profileImage,
-            coverImage: base64Image.value ?? model.coverImage,
+            profileImage: base64ProfileImage.value ?? model.profileImage,
+            coverImage: base64BannerImage.value ?? model.coverImage,
           )
           .toMapForApi();
 
-      print('ID no dataToSend: ${dataToSend["id"]}');
       print("TAMO NO PATCH");
 
       final result = await _client.patch(
