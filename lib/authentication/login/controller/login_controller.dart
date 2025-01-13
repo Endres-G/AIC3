@@ -43,7 +43,6 @@ class LoginController extends GetxController {
         print(result.statusCode);
 
         if (result.statusCode == 200 || result.statusCode == 201) {
-          CustomOverlay.success("Informações carregadas com sucesso!");
           await Get.find<GlobalController>().saveUserSession(result.data);
         } else {
           CustomOverlay.error(

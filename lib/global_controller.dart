@@ -14,6 +14,7 @@ class GlobalController extends GetxController {
       print('Mapa recebido pelo saveUserSession: $session');
 
       userSession = userSession.copyWith(
+        id: session["id"] ?? userSession.id,
         businessName: session["businessName"] ?? userSession.businessName,
         email: session["email"] ?? userSession.email,
         profileImage: session["profileImage"] ?? userSession.profileImage,
