@@ -15,10 +15,10 @@ class WeaklyDataWidget extends StatelessWidget {
         color: DesignSystemColors.greenChart,
         borderRadius: BorderRadius.circular(16),
       ),
-      child: const Column(
+      child: Column(
         children: [
           BarChartWidget(),
-          Text(
+          const Text(
             "Vendas",
             style: TextStyle(
                 fontSize: 24,
@@ -26,7 +26,7 @@ class WeaklyDataWidget extends StatelessWidget {
                 fontFamily: "Alexandria",
                 color: DesignSystemColors.titleTextfield),
           ),
-          Text(
+          const Text(
             "da semana",
             style: TextStyle(
                 fontSize: 13,

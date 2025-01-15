@@ -6,6 +6,7 @@ import 'package:aic_lll/core/models/global_controller_model.dart';
 import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/custom_overlay.dart';
 import 'package:aic_lll/global_controller.dart';
+import 'package:aic_lll/home/models/home_data_model.dart';
 import 'package:aic_lll/home/products/models/create_product_model.dart';
 import 'package:aic_lll/home/products/models/product_variation_model.dart';
 import 'package:dio/dio.dart';
@@ -21,9 +22,10 @@ class HomeController extends GetxController {
   RxInt currentIndex = 0.obs; // Índice da página atual
   var selectedColor = Rx<Color>(Colors.blue);
   Rx<bool> isFetched = false.obs; // Flag para evitar múltiplas requisições
-
+  RxList<int> transactionsCountForLast7Days = <int>[].obs;
   RxList<ProductModel> products = <ProductModel>[].obs;
-
+  Rx<int> totalTransactionsValueForLast7Days = 0.obs;
+  Rx<int> totalTransactionsCountForLast7Days = 0.obs;
   TextEditingController productDiscriptionController = TextEditingController();
   TextEditingController productNameController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -55,6 +57,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getHomeData();
     if (products.isEmpty) {
       fetchProducts();
     }
@@ -312,5 +315,47 @@ class HomeController extends GetxController {
     } catch (e) {
       CustomOverlay.error("Erro");
     }
+  }
+
+  Future<HomeDataModel> getHomeData() async {
+    try {
+      final result = await _client.get(
+        "$baseUrl/factories/${Get.find<GlobalController>().userSession.id}/main-charts",
+      );
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        CustomOverlay.success("Dados carregados!");
+        final data = HomeDataModel.fromJson(result.data);
+        print(data);
+
+        print(data.totalTransactionsCountForLast7Days);
+        print(data.totalTransactionsValueForLast7Days);
+
+        totalTransactionsCountForLast7Days.value =
+            data.totalTransactionsCountForLast7Days;
+
+        totalTransactionsValueForLast7Days.value =
+            data.totalTransactionsValueForLast7Days;
+
+        transactionsCountForLast7Days.value =
+            data.transactionsCountForLast7Days;
+
+        return data;
+      }
+    } on Exception catch (e) {
+      CustomOverlay.error("Erro ao carregar dados!");
+      print("Erro: $e");
+      return HomeDataModel(
+        transactionsCountForLast7Days: [],
+        totalTransactionsCountForLast7Days: 0,
+        totalTransactionsValueForLast7Days: 0,
+      );
+    }
+
+    // Return a default HomeDataModel in case of an unexpected flow
+    return HomeDataModel(
+      transactionsCountForLast7Days: [],
+      totalTransactionsCountForLast7Days: 0,
+      totalTransactionsValueForLast7Days: 0,
+    );
   }
 }

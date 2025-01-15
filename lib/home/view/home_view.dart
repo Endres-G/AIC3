@@ -48,29 +48,31 @@ class HomeView extends GetView<HomeController> {
                         const SizedBox(
                           height: 12,
                         ),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Column(
+                            const Column(
                               children: [WeaklyDataWidget()],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 18,
                             ),
                             Column(
                               children: [
                                 LastWeekSalesWidget(
-                                  value: 1500,
+                                  value: controller
+                                      .totalTransactionsValueForLast7Days.value,
                                   icon: AppAssets.lastWeekRecipe,
                                   text: 'Receita da última Semana',
                                   cardColor: DesignSystemColors.purpleChartData,
                                   iconColor: DesignSystemColors.purpleChartIcon,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 12,
                                 ),
                                 LastWeekSalesWidget(
-                                  value: 20,
+                                  value: controller
+                                      .totalTransactionsCountForLast7Days.value,
                                   icon: AppAssets.lastWeekSales,
                                   text: 'Vendas da última Semana',
                                   iconColor: DesignSystemColors.orangeChartIcon,
