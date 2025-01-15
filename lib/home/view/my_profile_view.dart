@@ -50,12 +50,12 @@ class MyProfileView extends GetView<HomeController> {
                       ListTile(
                         leading: const Icon(Icons.payment),
                         title: const Text("Métodos de pagamento"),
-                        onTap: () => print("Métodos de pagamento"),
+                        onTap: () => Get.toNamed(AppRoutes.editPaymentMethod),
                       ),
                       ListTile(
                         leading: const Icon(Icons.delivery_dining),
                         title: const Text("Métodos de entrega"),
-                        onTap: () => print("Métodos de entrega"),
+                        onTap: () => Get.toNamed(AppRoutes.editDelivery),
                       ),
                       ListTile(
                         leading: const Icon(Icons.exit_to_app),

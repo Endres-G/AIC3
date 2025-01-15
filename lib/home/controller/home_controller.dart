@@ -181,8 +181,6 @@ class HomeController extends GetxController {
         "$baseUrl/factories/${Get.find<GlobalController>().userSession.id}/products",
       );
       if (result.statusCode == 200 || result.statusCode == 201) {
-        CustomOverlay.success("Produtos carregados!");
-        // Ajustando para retornar uma lista de produtos
         return (result.data as List)
             .map((item) => ProductModel.fromJson(item))
             .toList();
@@ -234,6 +232,85 @@ class HomeController extends GetxController {
       }
     } on Exception catch (e) {
       CustomOverlay.error("Erro ao cadastrar produto!");
+    }
+  }
+
+  // Lista fixa de métodos de pagamento
+  final paymentMethods = [
+    {"id": 1, "name": "Boleto Bancário"},
+    {"id": 2, "name": "Cartão de Crédito"},
+    {"id": 3, "name": "Pix"},
+    {"id": 4, "name": "Transferência Bancária"},
+  ];
+
+  var selectedPaymentMethods = <int>[].obs; // IDs dos métodos selecionados
+
+  // Alterna a seleção de um método de pagamento
+  void togglePaymentMethod(int id) {
+    if (selectedPaymentMethods.contains(id)) {
+      selectedPaymentMethods.remove(id);
+    } else {
+      selectedPaymentMethods.add(id);
+    }
+  }
+
+  // Atualiza os métodos de pagamento
+  Future<void> updatePaymentMethods() async {
+    try {
+      final body = {"paymentMethodIds": selectedPaymentMethods};
+      // Substitua por sua chamada real de API
+      final response = await _client.patch(
+        '$baseUrl/factories/${Get.find<GlobalController>().userSession.id}/update-payment-methods',
+        data: body,
+      );
+      print(body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        CustomOverlay.success("Atualizado");
+        Get.back();
+      }
+      CustomOverlay.success("Atualizado");
+    } catch (e) {
+      CustomOverlay.error("Erro");
+    }
+  }
+
+  // Lista de métodos de entrega fixos
+  final deliveryMethods = const [
+    {"id": 1, "name": "Entrega Própria"},
+    {"id": 2, "name": "Transportadora"},
+    {"id": 3, "name": "Retirada no Local"},
+    {"id": 4, "name": "Correios"},
+  ];
+
+  // Lista de IDs dos métodos de entrega selecionados
+  var selectedDeliveryMethods = <int>[].obs;
+
+  // Função para alternar seleção
+  void toggleDeliveryMethod(int id) {
+    if (selectedDeliveryMethods.contains(id)) {
+      selectedDeliveryMethods.remove(id);
+    } else {
+      selectedDeliveryMethods.add(id);
+    }
+  }
+
+  // Atualiza os métodos de pagamento
+  Future<void> updateDeliveryMethods() async {
+    try {
+      final body = {"deliveryMethodIds": selectedDeliveryMethods};
+      // Substitua por sua chamada real de API
+      final response = await _client.patch(
+        '$baseUrl/factories/${Get.find<GlobalController>().userSession.id}/update-delivery-methods',
+        data: body,
+      );
+      print(body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        CustomOverlay.success("Atualizado");
+        Get.back();
+      }
+      CustomOverlay.success("Atualizado");
+    } catch (e) {
+      CustomOverlay.error("Erro");
     }
   }
 }

@@ -9,4 +9,6 @@ class AppRoutes {
   static const String homePageView = '/page-view';
   static const String createProduct = '/product';
   static const String editProfile = '/edit-profile';
+  static const String editPaymentMethod = '/edit-payment-method';
+  static const String editDelivery = '/edit-delivery';
 }

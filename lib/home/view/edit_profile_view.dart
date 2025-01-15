@@ -118,18 +118,6 @@ class EditProfileView extends GetView<HomeController> {
                                           profileImage: controller
                                               .profileImage.value
                                               .toString())),
-                                  // print(GlobalControllerModel(
-                                  //     id: Get.find<GlobalController>()
-                                  //         .userSession
-                                  //         .id,
-                                  //     businessName: controller
-                                  //         .businessNameController.text,
-                                  //     coverImage: controller.bannerImage.value
-                                  //         .toString(),
-                                  //     email: controller.emailController.text,
-                                  //     profileImage: controller
-                                  //         .profileImage.value
-                                  //         .toString())),
                                   text: "Enviar",
                                   isGradient: false),
                             ],
