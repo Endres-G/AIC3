@@ -35,7 +35,7 @@ class EditProfileView extends GetView<HomeController> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         const Row(
                           children: [
                             SizedBox(
@@ -50,32 +50,17 @@ class EditProfileView extends GetView<HomeController> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         Form(
                           key: formProfileKey,
                           child: Column(
                             children: [
                               CustomTextfield(
-                                title: "Endereço de E-mail",
-                                hint: "seu e-mail",
-                                controller: controller.emailController,
-                                validator: (email) {
-                                  if (email == null || email.isEmpty) {
-                                    return "E-mail é obrigatório.";
-                                  } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-                                      .hasMatch(email)) {
-                                    return "Digite um e-mail válido.";
-                                  }
-                                  return null;
-                                },
-                              ),
-
-                              CustomTextfield(
                                 title: "Nome da Empresa",
                                 hint: "nome da empresa",
                                 controller: controller.businessNameController,
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               // Imagem de Perfil
                               ListTile(
                                 leading: const Icon(Icons.attach_file),
@@ -97,7 +82,7 @@ class EditProfileView extends GetView<HomeController> {
                                       : const SizedBox();
                                 }),
                               ),
-                              SizedBox(height: 15),
+                              const SizedBox(height: 15),
                               // Imagem de Banner
                               ListTile(
                                 leading: const Icon(Icons.attach_file),
@@ -119,7 +104,7 @@ class EditProfileView extends GetView<HomeController> {
                                       : const SizedBox();
                                 }),
                               ),
-                              SizedBox(height: 30),
+                              const SizedBox(height: 30),
                               PrimaryButton(
                                   onClick: () => controller.patchProfile(
                                       GlobalControllerModel(

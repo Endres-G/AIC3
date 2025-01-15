@@ -32,6 +32,7 @@ class GlobalControllerModel extends Equatable {
 
   Map<String, dynamic> toMapForApi() {
     return {
+      'businessName': businessName,
       'profileImage': profileImage,
       'coverImage': coverImage,
     };

@@ -83,9 +83,11 @@ class HomeController extends GetxController {
         Uint8List decodedBytes = base64Decode(base64BannerImage.value!);
         bannerImage.value = decodedBytes;
       } else if (isProduct) {
+        print("CHEGUE ONDE DEVIA");
         base64ProductImage.value = base64Encode(imageBytes);
         Uint8List decodedBytes = base64Decode(base64ProductImage.value!);
         productImage.value = decodedBytes;
+        bytes.value = decodedBytes;
       }
 
       // Atualiza a imagem selecionada
@@ -137,7 +139,7 @@ class HomeController extends GetxController {
               width: double.parse(productWidthController.text),
               height: double.parse(productHeightController.text),
               stock: int.parse(productStockController.text),
-              image: base64Image.value ?? "",
+              image: base64ProductImage.value ?? "",
               productId: null,
             )
           ],

@@ -27,6 +27,7 @@ class MyProfileView extends GetView<HomeController> {
                   child: Column(
                     children: [
                       Card(
+                        margin: EdgeInsets.zero,
                         color: Colors.transparent,
                         elevation: 0,
                         child: BannerTile(
