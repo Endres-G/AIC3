@@ -170,8 +170,9 @@ class HomeController extends GetxController {
   }
 
   void exitMySession() async {
-    Get.find<GlobalController>().clearUserSession();
+    await Get.find<GlobalController>().clearUserSession();
     clearAll();
+    update();
 
     Get.offAndToNamed(AppRoutes.welcome); // Navega para a tela de boas-vindas
   }
@@ -488,6 +489,14 @@ class HomeController extends GetxController {
 
   Future<void> changeStatus(int id, String newStatus) async {
     try {
+      print(newStatus);
+      print("aqui vai testar");
+      if (newStatus == "awaitingcollection") {
+        newStatus = "awaitingCollection";
+        print(newStatus);
+      }
+      print("não foi nao");
+
       // Faz a requisição ao endpoint de transações pendentes
       final result = await _client.patch(
         "$baseUrl/transactions/update-status/$id",
@@ -499,7 +508,8 @@ class HomeController extends GetxController {
       // Verifica se o código de status da resposta é 200 ou 201
       if (result.statusCode == 200 || result.statusCode == 201) {
         // Certifica-se de que o retorno seja um objeto (não uma lista)
-        print(result.data);
+        CustomOverlay.success("status Atualizado!");
+        Get.back();
       }
       // ignore: empty_catches
     } on Exception {}

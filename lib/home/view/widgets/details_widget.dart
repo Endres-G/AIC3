@@ -64,18 +64,18 @@ class OrderCard extends StatelessWidget {
                         ),
                       ),
                       DropdownButton<String>(
-                        value: controller.pendingDetail.value?.status ??
-                            "pending", // Valor padrão
+                        value: (controller.pendingDetail.value?.status ??
+                                "pending")
+                            .toLowerCase(), // Converte para minúsculas
                         icon: const Icon(Icons.keyboard_arrow_down),
                         underline: const SizedBox(),
                         items: [
                           "pending",
                           "manufacturing",
-                          "awaitingCollection",
+                          "awaitingcollection",
                           "sent",
                           "delivered"
                         ].map((String value) {
-                          // Mapeia os valores em inglês para os valores em português
                           String displayValue;
                           IconData icon;
                           Color iconColor;
@@ -91,7 +91,7 @@ class OrderCard extends StatelessWidget {
                               icon = Icons.build;
                               iconColor = Colors.blueAccent;
                               break;
-                            case "awaitingCollection":
+                            case "awaitingcollection":
                               displayValue = "Aguardando Coleta";
                               icon = Icons.access_alarm;
                               iconColor = Colors.purple;
@@ -114,7 +114,7 @@ class OrderCard extends StatelessWidget {
                           }
 
                           return DropdownMenuItem<String>(
-                            value: value,
+                            value: value, // Converte para minúsculas
                             child: Row(
                               children: [
                                 Icon(icon, color: iconColor),
@@ -126,7 +126,6 @@ class OrderCard extends StatelessWidget {
                           );
                         }).toList(),
                         onChanged: (newValue) {
-                          // Chama a função que muda o status e imprime o valor no terminal
                           if (newValue != "delivered") {
                             changeStatus(newValue ?? "pending");
                           }

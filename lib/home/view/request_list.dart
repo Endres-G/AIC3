@@ -58,7 +58,7 @@ class RequestList extends GetView<HomeController> {
                                     },
                                     child: RequestCard(
                                       requestCardModel: RequestCardModel(
-                                        status: request.status,
+                                        status: request.status.toLowerCase(),
                                         pendingDay: request.dateCreated,
                                         pendingId: request.id.toString(),
                                         client: request.buyerId.toString(),

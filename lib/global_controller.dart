@@ -45,7 +45,18 @@ class GlobalController extends GetxController {
   }
 
   Future<void> clearUserSession() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_keyUserSession);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      // Remove apenas os dados da sessão do cache
+      await prefs.remove(_keyUserSession);
+
+      // Reseta o modelo de sessão em memória para o estado vazio
+      userSession = GlobalControllerModel.empty();
+
+      print('Sessão do usuário limpa com sucesso.');
+    } catch (e) {
+      print('Erro ao limpar a sessão do usuário: $e');
+    }
   }
 }

@@ -17,7 +17,7 @@ class RequestCard extends StatelessWidget {
         return Colors.blue;
       case "manufacturing":
         return Colors.blueAccent;
-      case "awaitingCollection":
+      case "awaitingcollection":
         return Colors.purple;
       case "sent":
         return Colors.orange;
@@ -35,7 +35,7 @@ class RequestCard extends StatelessWidget {
         return "Pendente";
       case "manufacturing":
         return "Em Fabricação";
-      case "awaitingCollection":
+      case "awaitingcollection":
         return "Aguardando Coleta";
       case "sent":
         return "Enviado";
