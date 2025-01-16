@@ -3,7 +3,7 @@ class PendingDetailsModel {
   final int sellerId;
   final int buyerId;
   final DateTime dateCreated;
-  final String status;
+  String status;
   final String totalValue;
   final int paymentMethodId;
   final int deliveryMethodId;

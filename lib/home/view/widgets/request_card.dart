@@ -13,7 +13,7 @@ class RequestCard extends StatelessWidget {
   // Método para obter a cor das bordas e do texto do status com base no status
   Color _getStatusColor(String status) {
     switch (status) {
-      case "Pending":
+      case "pending":
         return Colors.blue;
       case "manufacturing":
         return Colors.blueAccent;
@@ -31,7 +31,7 @@ class RequestCard extends StatelessWidget {
   // Método para traduzir o status
   String _getTranslatedStatus(String status) {
     switch (status) {
-      case "Pending":
+      case "pending":
         return "Pendente";
       case "manufacturing":
         return "Em Fabricação";

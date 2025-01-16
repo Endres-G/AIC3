@@ -45,14 +45,6 @@ class PendingDetailsView extends GetView<HomeController> {
                         OrderCard(
                           id: Get.arguments,
                           cliente: "João Silva",
-                          data: "03/12/2024",
-                          produtos: [
-                            {"nome": "Camiseta", "quantidade": 2},
-                            {"nome": "Calça Jeans", "quantidade": 1},
-                          ],
-                          tipoEntrega: "Normal",
-                          tipoPagamento: "Cartão de Crédito",
-                          valorTotal: 249.90,
                         ),
                         const SizedBox(height: 8),
                       ],

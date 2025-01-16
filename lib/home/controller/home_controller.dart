@@ -129,6 +129,20 @@ class HomeController extends GetxController {
     Get.offAndToNamed(AppRoutes.welcome); // Navega para a tela de boas-vindas
   }
 
+  Future<void> refreshRequests() async {
+    isLoading.value = true;
+    try {
+      getPendingTransactions();
+      // Lógica para recarregar os dados
+      await Future.delayed(const Duration(seconds: 2)); // Simula carregamento
+      // Exemplo: Chamar API e atualizar `pendingTransactions`
+    } catch (e) {
+      print("Erro ao recarregar: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   Future<void> createProduct() async {
     try {
       final result = await _client.post(
@@ -423,5 +437,24 @@ class HomeController extends GetxController {
 
     // Retorna null em caso de erro
     return null;
+  }
+
+  Future<void> changeStatus(int id, String newStatus) async {
+    try {
+      // Faz a requisição ao endpoint de transações pendentes
+      final result = await _client.patch(
+        "$baseUrl/transactions/update-status/$id",
+        data: {
+          "status": newStatus,
+        },
+      );
+
+      // Verifica se o código de status da resposta é 200 ou 201
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        // Certifica-se de que o retorno seja um objeto (não uma lista)
+        print(result.data);
+      }
+      // ignore: empty_catches
+    } on Exception {}
   }
 }
