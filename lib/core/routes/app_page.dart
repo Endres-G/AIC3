@@ -10,6 +10,7 @@ import 'package:aic_lll/home/view/edit_profile_view.dart';
 import 'package:aic_lll/home/view/home_bindings.dart';
 import 'package:aic_lll/home/view/home_view.dart';
 import 'package:aic_lll/home/home_page_view.dart';
+import 'package:aic_lll/home/view/pending_details_view.dart';
 import 'package:aic_lll/splash/splash_binding.dart';
 import 'package:aic_lll/splash/view/splash_page.dart';
 import 'package:aic_lll/authentication/welcome/views/welcome_view.dart';
@@ -63,5 +64,10 @@ class AppPages {
         name: AppRoutes.editDelivery,
         page: () => const EditDeliveryView(),
         binding: HomeBindings()),
+    GetPage(
+      name: AppRoutes.pendingDetails,
+      page: () => const PendingDetailsView(),
+      binding: HomeBindings(),
+    ),
   ];
 }

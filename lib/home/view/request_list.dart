@@ -1,15 +1,10 @@
+import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
 import 'package:aic_lll/home/models/request_card_model.dart';
 import 'package:aic_lll/home/view/widgets/request_card.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:aic_lll/core/widgets/loading_widget.dart';
-import 'package:aic_lll/home/controller/home_controller.dart';
-import 'package:aic_lll/home/models/request_card_model.dart';
-import 'package:aic_lll/home/view/widgets/request_card.dart';
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
@@ -45,13 +40,20 @@ class RequestList extends GetView<HomeController> {
                           itemBuilder: (context, index) {
                             final request =
                                 controller.pendingTransactions[index];
-                            return RequestCard(
-                              requestCardModel: RequestCardModel(
-                                status: request.status,
-                                pendingDay: request.dateCreated,
-                                pendingId: request.id.toString(),
-                                client: request.buyerId.toString(),
-                                totalValue: request.totalValue,
+                            return GestureDetector(
+                              onTap: () {
+                                print(
+                                    "Detalhes do pedido ${request.id.toString()}");
+                                Get.toNamed(AppRoutes.pendingDetails);
+                              },
+                              child: RequestCard(
+                                requestCardModel: RequestCardModel(
+                                  status: request.status,
+                                  pendingDay: request.dateCreated,
+                                  pendingId: request.id.toString(),
+                                  client: request.buyerId.toString(),
+                                  totalValue: request.totalValue,
+                                ),
                               ),
                             );
                           },

@@ -293,6 +293,8 @@ class HomeController extends GetxController {
   // Lista de IDs dos métodos de entrega selecionados
   var selectedDeliveryMethods = <int>[].obs;
 
+  get pendingDetails => null;
+
   // Função para alternar seleção
   void toggleDeliveryMethod(int id) {
     if (selectedDeliveryMethods.contains(id)) {
