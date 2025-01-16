@@ -7,6 +7,7 @@ import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/custom_overlay.dart';
 import 'package:aic_lll/global_controller.dart';
 import 'package:aic_lll/home/models/home_data_model.dart';
+import 'package:aic_lll/home/models/pending_details_model.dart';
 import 'package:aic_lll/home/models/pending_transaction_model.dart';
 import 'package:aic_lll/home/products/models/create_product_model.dart';
 import 'package:aic_lll/home/products/models/product_variation_model.dart';
@@ -29,6 +30,7 @@ class HomeController extends GetxController {
   Rx<int> totalTransactionsCountForLast7Days = 0.obs;
   RxList<PendingTransactionModel> pendingTransactions =
       <PendingTransactionModel>[].obs;
+  final Rx<PendingDetailsModel?> pendingDetail = Rx<PendingDetailsModel?>(null);
 
   TextEditingController productDiscriptionController = TextEditingController();
   TextEditingController productNameController = TextEditingController();
@@ -293,8 +295,6 @@ class HomeController extends GetxController {
   // Lista de IDs dos métodos de entrega selecionados
   var selectedDeliveryMethods = <int>[].obs;
 
-  get pendingDetails => null;
-
   // Função para alternar seleção
   void toggleDeliveryMethod(int id) {
     if (selectedDeliveryMethods.contains(id)) {
@@ -369,8 +369,6 @@ class HomeController extends GetxController {
       );
       print("chegou a fazer a req");
       if (result.statusCode == 200 || result.statusCode == 201) {
-        CustomOverlay.success("Dados carregados!");
-
         // Certifique-se de que `result.data` seja uma lista
         if (result.data is List) {
           // Converte cada item da lista em um PendingTransactionModel
@@ -391,5 +389,39 @@ class HomeController extends GetxController {
 
     // Retorna uma lista vazia em caso de erro
     return [];
+  }
+
+  Future<PendingDetailsModel?> getDetailsPendingData(id) async {
+    try {
+      // Faz a requisição ao endpoint de transações pendentes
+      final result = await _client.get("$baseUrl/transactions/$id");
+
+      // Log básico para depuração
+      print("Requisição enviada para $baseUrl/transactions/$id");
+
+      // Verifica se o código de status da resposta é 200 ou 201
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        // Certifica-se de que o retorno seja um objeto (não uma lista)
+        if (result.data is Map<String, dynamic>) {
+          final data = PendingDetailsModel.fromJson(result.data);
+          pendingDetail.value = data; // Atribui o objeto ao Rx
+          print("SUCESSOOOO");
+          print(data.totalValue);
+          return data;
+        } else {
+          throw Exception(
+              "Formato inesperado de resposta da API: Esperado um objeto.");
+        }
+      } else {
+        throw Exception(
+            "Falha ao carregar dados. Status code: ${result.statusCode}");
+      }
+    } on Exception catch (e) {
+      CustomOverlay.error("Erro ao carregar dados!");
+      print("Erro: $e");
+    }
+
+    // Retorna null em caso de erro
+    return null;
   }
 }

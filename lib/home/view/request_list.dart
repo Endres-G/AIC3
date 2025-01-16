@@ -44,7 +44,8 @@ class RequestList extends GetView<HomeController> {
                               onTap: () {
                                 print(
                                     "Detalhes do pedido ${request.id.toString()}");
-                                Get.toNamed(AppRoutes.pendingDetails);
+                                Get.toNamed(AppRoutes.pendingDetails,
+                                    arguments: request.id);
                               },
                               child: RequestCard(
                                 requestCardModel: RequestCardModel(
