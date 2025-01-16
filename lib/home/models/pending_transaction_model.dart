@@ -47,6 +47,18 @@ class PendingTransactionModel {
     };
   }
 
+  factory PendingTransactionModel.empty() {
+    return PendingTransactionModel(
+      id: 0,
+      sellerId: 0,
+      buyerId: 0,
+      dateCreated: DateTime.now(),
+      status: '',
+      totalValue: 0.0,
+      paymentMethodId: 0,
+      deliveryMethodId: 0,
+    );
+  }
   @override
   String toString() {
     return 'PendingTransactionModel(id: $id, sellerId: $sellerId, buyerId: $buyerId, dateCreated: $dateCreated, status: $status, totalValue: $totalValue, paymentMethodId: $paymentMethodId, deliveryMethodId: $deliveryMethodId)';

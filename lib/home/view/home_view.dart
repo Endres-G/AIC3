@@ -109,20 +109,21 @@ class HomeView extends GetView<HomeController> {
                             ),
                             const SizedBox(
                               height: 12,
-                            ), // Mantendo o espaçamento entre o título e os cartões
-
-                            // Usando ListView.builder para gerar a lista de PendingCards
+                            ),
                             ListView.builder(
                               shrinkWrap:
                                   true, // Para evitar o erro de overflow
                               physics:
                                   const NeverScrollableScrollPhysics(), // Evita rolagem duplicada
-                              itemCount: 8, // Número de itens na lista
+                              itemCount: controller.pendingTransactions
+                                  .length, // Número de itens na lista
                               itemBuilder: (context, index) {
+                                final transaction =
+                                    controller.pendingTransactions[index];
                                 return PendingCard(
-                                  value: 50,
-                                  id: '123',
-                                  time: DateTime(2024, 11, 30, 8, 30),
+                                  value: transaction.totalValue,
+                                  id: transaction.id.toString(),
+                                  time: transaction.dateCreated,
                                   title: 'Example Title',
                                 );
                               },

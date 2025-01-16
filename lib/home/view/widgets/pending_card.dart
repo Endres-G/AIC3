@@ -13,7 +13,7 @@ class PendingCard extends StatelessWidget {
   });
 
   final String title;
-  final int value;
+  final double value;
   final String id;
   final DateTime time; // Altere aqui para DateTime
 

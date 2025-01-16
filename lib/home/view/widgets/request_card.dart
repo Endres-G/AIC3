@@ -9,64 +9,96 @@ class RequestCard extends StatelessWidget {
   });
 
   final RequestCardModel requestCardModel;
+  //toDo mudar o nome do status para ingles
+  // Método para obter a cor das bordas e do texto do status com base no status
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case "Pending":
+        return Colors.blue;
+      case "Em fabricação":
+        return Colors.blueAccent;
+      case "Aguardando coleta":
+        return Colors.purple;
+      case "Enviado":
+        return Colors.orange;
+      case "Entregue":
+        return Colors.green;
+      default:
+        return Colors.grey; // Cor padrão para status desconhecido
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: DesignSystemColors.pendingCard,
-        borderRadius: BorderRadius.circular(12), // Bordas arredondadas
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 5,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-      child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start, // Alinha o texto à esquerda
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                requestCardModel.pendingId, // Exibe o ID do pedido
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+    final statusColor = _getStatusColor(requestCardModel.status);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Container(
+        decoration: BoxDecoration(
+          color: DesignSystemColors.pendingCard, // Cor original do card
+          borderRadius: BorderRadius.circular(12), // Bordas arredondadas
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start, // Alinha o texto à esquerda
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  requestCardModel.pendingId, // Exibe o ID do pedido
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(8), // Bordas arredondadas
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: DesignSystemColors
+                        .pendingCard, // Fundo igual ao do card principal
+                    border: Border.all(
+                      color: statusColor, // Cor das bordas dinâmica
+                    ),
+                    borderRadius:
+                        BorderRadius.circular(20), // Bordas arredondadas
+                  ),
+                  child: Text(
+                    requestCardModel.status, // Exibe o status
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: statusColor, // Cor do texto dinâmica
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                child: Text(
-                  requestCardModel
-                      .formattedPendingDay, // Exibe a data formatada
-                  style: const TextStyle(fontSize: 14, color: Colors.black),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          _buildRow("Cliente", requestCardModel.client),
-          const SizedBox(
-            height: 2,
-          ),
-          _buildRow("Data do pedido", requestCardModel.formattedPendingDay),
-          const SizedBox(
-            height: 2,
-          ), // Exibe a data do pedido
-          _buildRow("Valor total", requestCardModel.formattedTotalValue),
-          const SizedBox(
-            height: 2,
-          ), // Exibe o valor total formatado
-        ],
+              ],
+            ),
+            const SizedBox(height: 8),
+            _buildRow("Cliente", requestCardModel.client),
+            const SizedBox(
+              height: 2,
+            ),
+            _buildRow("Data do pedido", requestCardModel.formattedPendingDay),
+            const SizedBox(
+              height: 2,
+            ), // Exibe a data do pedido
+            _buildRow("Valor total", requestCardModel.formattedTotalValue),
+            const SizedBox(
+              height: 2,
+            ), // Exibe o valor total formatado
+          ],
+        ),
       ),
     );
   }

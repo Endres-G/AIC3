@@ -7,6 +7,7 @@ import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/custom_overlay.dart';
 import 'package:aic_lll/global_controller.dart';
 import 'package:aic_lll/home/models/home_data_model.dart';
+import 'package:aic_lll/home/models/pending_transaction_model.dart';
 import 'package:aic_lll/home/products/models/create_product_model.dart';
 import 'package:aic_lll/home/products/models/product_variation_model.dart';
 import 'package:dio/dio.dart';
@@ -26,6 +27,9 @@ class HomeController extends GetxController {
   RxList<ProductModel> products = <ProductModel>[].obs;
   Rx<int> totalTransactionsValueForLast7Days = 0.obs;
   Rx<int> totalTransactionsCountForLast7Days = 0.obs;
+  RxList<PendingTransactionModel> pendingTransactions =
+      <PendingTransactionModel>[].obs;
+
   TextEditingController productDiscriptionController = TextEditingController();
   TextEditingController productNameController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -58,6 +62,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     getHomeData();
+    getPendingTransactions();
     if (products.isEmpty) {
       fetchProducts();
     }
@@ -325,10 +330,6 @@ class HomeController extends GetxController {
       if (result.statusCode == 200 || result.statusCode == 201) {
         CustomOverlay.success("Dados carregados!");
         final data = HomeDataModel.fromJson(result.data);
-        print(data);
-
-        print(data.totalTransactionsCountForLast7Days);
-        print(data.totalTransactionsValueForLast7Days);
 
         totalTransactionsCountForLast7Days.value =
             data.totalTransactionsCountForLast7Days;
@@ -357,5 +358,36 @@ class HomeController extends GetxController {
       totalTransactionsCountForLast7Days: 0,
       totalTransactionsValueForLast7Days: 0,
     );
+  }
+
+  Future<List<PendingTransactionModel>> getPendingTransactions() async {
+    try {
+      final result = await _client.get(
+        "$baseUrl/factories/${Get.find<GlobalController>().userSession.id}/pending-transactions",
+      );
+      print("chegou a fazer a req");
+      if (result.statusCode == 200 || result.statusCode == 201) {
+        CustomOverlay.success("Dados carregados!");
+
+        // Certifique-se de que `result.data` seja uma lista
+        if (result.data is List) {
+          // Converte cada item da lista em um PendingTransactionModel
+          final data = (result.data as List)
+              .map((json) => PendingTransactionModel.fromJson(json))
+              .toList();
+
+          pendingTransactions.value = data;
+          return data;
+        } else {
+          throw Exception("Formato inesperado de resposta da API");
+        }
+      }
+    } on Exception catch (e) {
+      CustomOverlay.error("Erro ao carregar dados!");
+      print("Erro: $e");
+    }
+
+    // Retorna uma lista vazia em caso de erro
+    return [];
   }
 }

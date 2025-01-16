@@ -12,8 +12,6 @@ class BarChartWidget extends StatelessWidget {
       Get.find<HomeController>().transactionsCountForLast7Days;
   @override
   Widget build(BuildContext context) {
-    print(controllerList);
-
     final days = _getDaysForLast7Days();
     return AspectRatio(
       aspectRatio: 1.0,
