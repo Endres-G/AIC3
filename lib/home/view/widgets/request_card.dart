@@ -9,28 +9,47 @@ class RequestCard extends StatelessWidget {
   });
 
   final RequestCardModel requestCardModel;
-  //toDo mudar o nome do status para ingles
+
   // Método para obter a cor das bordas e do texto do status com base no status
   Color _getStatusColor(String status) {
     switch (status) {
       case "Pending":
         return Colors.blue;
-      case "Em fabricação":
+      case "manufacturing":
         return Colors.blueAccent;
-      case "Aguardando coleta":
+      case "awaitingCollection":
         return Colors.purple;
-      case "Enviado":
+      case "sent":
         return Colors.orange;
-      case "Entregue":
+      case "delivered":
         return Colors.green;
       default:
         return Colors.grey; // Cor padrão para status desconhecido
     }
   }
 
+  // Método para traduzir o status
+  String _getTranslatedStatus(String status) {
+    switch (status) {
+      case "Pending":
+        return "Pendente";
+      case "manufacturing":
+        return "Em Fabricação";
+      case "awaitingCollection":
+        return "Aguardando Coleta";
+      case "sent":
+        return "Enviado";
+      case "delivered":
+        return "Entregue";
+      default:
+        return "Desconhecido"; // Texto padrão para status desconhecido
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final statusColor = _getStatusColor(requestCardModel.status);
+    final translatedStatus = _getTranslatedStatus(requestCardModel.status);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -74,7 +93,7 @@ class RequestCard extends StatelessWidget {
                         BorderRadius.circular(20), // Bordas arredondadas
                   ),
                   child: Text(
-                    requestCardModel.status, // Exibe o status
+                    translatedStatus, // Exibe o status traduzido
                     style: TextStyle(
                       fontSize: 14,
                       color: statusColor, // Cor do texto dinâmica
