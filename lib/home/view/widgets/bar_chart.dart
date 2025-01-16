@@ -19,100 +19,30 @@ class BarChartWidget extends StatelessWidget {
         color: DesignSystemColors.greenChart,
         child: BarChart(
           BarChartData(
-            barGroups: [
-              BarChartGroupData(
-                x: 0,
-                barRods: [
-                  BarChartRodData(
-                      toY: controllerList[0].toDouble(),
-                      width: 15, // Aumenta a largura da barra
-                      color: DesignSystemColors
-                          .greenChartData // Aumenta a largura da barra
+            barGroups: List.generate(7, (index) {
+              // Verifica se a lista tem dados suficientes
+              double value = index < controllerList.length
+                  ? controllerList[index].toDouble()
+                  : 0.0; // Se não houver dados, atribui 0
 
-                      ),
-                ],
-              ),
-              BarChartGroupData(
-                x: 1,
+              return BarChartGroupData(
+                x: index,
                 barRods: [
                   BarChartRodData(
-                      toY: controllerList[1].toDouble(),
-                      width: 15, // Aumenta a largura da barra
-                      color: DesignSystemColors
-                          .greenChartData // Aumenta a largura da barra
-
-                      ),
+                    toY: value,
+                    width: 15,
+                    color: DesignSystemColors.greenChartData,
+                  ),
                 ],
-              ),
-              BarChartGroupData(
-                x: 2,
-                barRods: [
-                  BarChartRodData(
-                      toY: controllerList[2].toDouble(),
-                      width: 15,
-                      color: DesignSystemColors
-                          .greenChartData // Aumenta a largura da barra
-// Aumenta a largura da barra
-                      ),
-                ],
-              ),
-              BarChartGroupData(
-                x: 3,
-                barRods: [
-                  BarChartRodData(
-                      toY: controllerList[3].toDouble(),
-                      width: 15,
-                      color: DesignSystemColors
-                          .greenChartData // Aumenta a largura da barra
-// Aumenta a largura da barra
-                      ),
-                ],
-              ),
-              BarChartGroupData(
-                x: 4,
-                barRods: [
-                  BarChartRodData(
-                      toY: controllerList[4].toDouble(),
-                      width: 15,
-                      color: DesignSystemColors
-                          .greenChartData // Aumenta a largura da barra
-// Aumenta a largura da barra
-                      ),
-                ],
-              ),
-              BarChartGroupData(
-                x: 5,
-                barRods: [
-                  BarChartRodData(
-                      toY: controllerList[5].toDouble(),
-                      width: 15,
-                      color: DesignSystemColors
-                          .greenChartData // Aumenta a largura da barra
-                      // Aumenta a largura da barra
-                      ),
-                ],
-              ),
-              BarChartGroupData(
-                x: 6,
-                barRods: [
-                  BarChartRodData(
-                      toY: controllerList[6].toDouble(),
-                      width: 15,
-                      color: DesignSystemColors
-                          .greenChartData // Aumenta a largura da barra
-                      ),
-                ],
-              ),
-            ],
-            alignment:
-                BarChartAlignment.spaceEvenly, // Centraliza e espaça as barras
+              );
+            }),
+            alignment: BarChartAlignment.spaceEvenly,
             titlesData: FlTitlesData(
               bottomTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
-                  reservedSize: 30, // Espaço para os títulos no eixo X
+                  reservedSize: 30,
                   getTitlesWidget: (value, meta) {
-                    days;
                     if (value < 0 || value > 6) return Container();
                     return SideTitleWidget(
                       axisSide: meta.axisSide,
@@ -127,30 +57,16 @@ class BarChartWidget extends StatelessWidget {
                   },
                 ),
               ),
-              leftTitles: const AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: false, // Remove os títulos do eixo Y
-                ),
-              ),
-              topTitles: const AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: false, // Remove os títulos do eixo superior
-                ),
-              ),
-              rightTitles: const AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: false, // Remove os títulos do eixo direito
-                ),
-              ),
+              leftTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              topTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              rightTitles:
+                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
             ),
-            gridData: const FlGridData(
-              show: false,
-            ), // Esconde a malha cartesiana
-            borderData: FlBorderData(
-              show: false,
-            ), // Esconde as bordas
-            backgroundColor:
-                Colors.transparent, // Fundo transparente do gráfico
+            gridData: const FlGridData(show: false),
+            borderData: FlBorderData(show: false),
+            backgroundColor: Colors.transparent,
           ),
         ),
       ),

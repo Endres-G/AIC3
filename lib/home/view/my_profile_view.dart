@@ -78,11 +78,11 @@ class BannerTile extends StatelessWidget {
   final String businessName;
 
   const BannerTile({
-    Key? key,
+    super.key,
     required this.bannerImage,
     required this.profileImage,
     required this.businessName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -115,26 +115,29 @@ class BannerTile extends StatelessWidget {
           ),
 
         // Imagem do perfil e nome do negócio
-        ListTile(
-          leading: profileImage != null
-              ? ClipOval(
-                  child: Image.memory(
-                    base64Decode(profileImage!),
-                    width: 60,
-                    height: 60,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Icon(
-                        Icons.image_not_supported_outlined,
-                        size: 50,
-                      );
-                    },
-                  ),
-                )
-              : const Icon(Icons.image_not_supported, size: 60),
-          title: Text(
-            businessName,
-            style: const TextStyle(fontSize: 24),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            leading: profileImage != null
+                ? ClipOval(
+                    child: Image.memory(
+                      base64Decode(profileImage!),
+                      width: 60,
+                      height: 60,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(
+                          Icons.image_not_supported_outlined,
+                          size: 50,
+                        );
+                      },
+                    ),
+                  )
+                : const Icon(Icons.image_not_supported, size: 60),
+            title: Text(
+              businessName,
+              style: const TextStyle(fontSize: 24),
+            ),
           ),
         ),
       ],

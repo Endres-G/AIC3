@@ -4,6 +4,7 @@ import 'package:aic_lll/core/routes/app_routes.dart';
 import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/authentication/welcome/controller/welcome_controller.dart';
 import 'package:aic_lll/core/widgets/primary_button.dart';
+import 'package:aic_lll/global_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +15,10 @@ class WelcomeView extends GetView<WelcomeController> {
 
   @override
   Widget build(BuildContext context) {
+    print("CARREGOU A TELA E AGR VOU TESTAR UNS NEGOCIO");
+    print(Get.find<GlobalController>().userSession.businessName);
+    print(Get.find<GlobalController>().userSession.coverImage);
+    print(Get.find<GlobalController>().userSession.profileImage);
     return Scaffold(
       body: Obx(
         () => SafeArea(

@@ -70,6 +70,51 @@ class HomeController extends GetxController {
     }
   }
 
+  void clearAll() async {
+    // Resetando variáveis observáveis
+    isLoading.value = false;
+    currentIndex.value = 0;
+    selectedColor.value = Colors.blue;
+    isFetched.value = false;
+    transactionsCountForLast7Days.clear();
+    products.clear();
+    totalTransactionsValueForLast7Days.value = 0;
+    totalTransactionsCountForLast7Days.value = 0;
+    pendingTransactions.clear();
+    pendingDetail.value = null;
+
+    // Resetando TextEditingControllers
+    productDiscriptionController.clear();
+    productNameController.clear();
+    statusController.clear();
+    priceController.clear();
+    colorNameController.clear();
+    categoryIdController.clear();
+    productMaterialController.clear();
+    productLengthController.clear();
+    productWidthController.clear();
+    productHeightController.clear();
+    productStockController.clear();
+    cnpjController.clear();
+    businessNameController.clear();
+    emailController.clear();
+
+    // Resetando imagens e variáveis relacionadas
+    base64ProfileImage.value = null;
+    base64BannerImage.value = null;
+    base64ProductImage.value = null;
+    image.value = null;
+    bytesProfileImg.value = null;
+    bytesBannerImg.value = null;
+    bytes.value = null;
+    profileImage.value = null;
+    bannerImage.value = null;
+    productImage.value = null;
+
+    // Resetando métodos de pagamento e entrega
+    selectedPaymentMethods.clear();
+  }
+
   Rx<Uint8List?> profileImage = Rx<Uint8List?>(null);
   Rx<Uint8List?> bannerImage = Rx<Uint8List?>(null);
   Rx<Uint8List?> productImage = Rx<Uint8List?>(null);
@@ -124,8 +169,10 @@ class HomeController extends GetxController {
     image.value = null; // Limpa a imagem
   }
 
-  void exitMySession() {
+  void exitMySession() async {
     Get.find<GlobalController>().clearUserSession();
+    clearAll();
+
     Get.offAndToNamed(AppRoutes.welcome); // Navega para a tela de boas-vindas
   }
 
