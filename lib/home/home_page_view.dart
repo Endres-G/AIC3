@@ -1,8 +1,9 @@
 import 'package:aic_lll/core/themes/app_assets.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
-import 'package:aic_lll/home/order_list/view/order_list_view.dart';
-import 'package:aic_lll/home/order_list/view/request_list.dart';
 import 'package:aic_lll/home/view/home_view.dart';
+import 'package:aic_lll/home/view/my_perfil_view.dart';
+import 'package:aic_lll/home/view/products_list.dart';
+import 'package:aic_lll/home/view/request_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -33,7 +34,13 @@ class HomePageView extends GetView<HomeController> {
         children: const [
           HomeView(), // A HomeView é a primeira página
           RequestList(),
-          Center(child: Text('Tela 3', style: TextStyle(fontSize: 24))),
+          ProductsList(),
+          Center(
+              child: Text(
+            'Tela 3',
+            style: TextStyle(fontSize: 24),
+          )),
+          MyPerfilView(),
         ],
       ),
       bottomNavigationBar: BottomAppBar(

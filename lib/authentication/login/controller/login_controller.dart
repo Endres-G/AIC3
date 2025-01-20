@@ -39,7 +39,7 @@ class LoginController extends GetxController {
         await Get.find<GlobalController>().saveUserSession(result.data);
 
         CustomOverlay.success("logado!!");
-        Get.toNamed(AppRoutes.homePageView);
+        Get.offAndToNamed(AppRoutes.homePageView);
       }
     } on Exception catch (e) {
       CustomOverlay.error("Erro ao logar!");

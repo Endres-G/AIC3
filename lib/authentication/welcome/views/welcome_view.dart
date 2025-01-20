@@ -25,13 +25,13 @@ class WelcomeView extends GetView<WelcomeController> {
                     children: <Widget>[
                       const WelcomeAppbar(),
                       PrimaryButton(
-                        onClick: () => Get.toNamed(AppRoutes.signUp),
+                        onClick: () => Get.offAndToNamed(AppRoutes.signUp),
                         text: "Criar uma conta",
                         isGradient: true,
                       ),
                       const SizedBox(height: 10),
                       PrimaryButton(
-                        onClick: () => Get.toNamed(AppRoutes.login),
+                        onClick: () => Get.offAndToNamed(AppRoutes.login),
                         text: "Já tenho uma conta",
                         isGradient: true,
                       ),
