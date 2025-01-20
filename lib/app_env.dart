@@ -5,7 +5,7 @@ class AppEnv {
   static Map<String, dynamic>? _config;
 
   static Future<void> loadEnv() async {
-    final jsonString = await rootBundle.loadString('assets/env.json');
+    final jsonString = await rootBundle.loadString('.env/dev.json');
     _config = json.decode(jsonString) as Map<String, dynamic>;
   }
 
