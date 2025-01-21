@@ -3,6 +3,7 @@ import 'package:aic_lll/core/themes/design_system.dart';
 import 'package:aic_lll/core/widgets/custom_textfield.dart';
 import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/core/widgets/primary_button.dart';
+import 'package:aic_lll/global_controller.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,8 @@ class EditProfileView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final formProfileKey =
         GlobalKey<FormState>(); // Chave global para o formulário
-
+    controller.businessNameController.text =
+        Get.find<GlobalController>().userSession.businessName!;
     return Scaffold(
       body: Obx(
         () => SafeArea(

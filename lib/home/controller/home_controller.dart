@@ -32,6 +32,8 @@ class HomeController extends GetxController {
       <PendingTransactionModel>[].obs;
   final Rx<PendingDetailsModel?> pendingDetail = Rx<PendingDetailsModel?>(null);
 
+  final selectedCategoryId = Rx<int?>(null); // ID da categoria selecionada
+  var categories = <Map<String, dynamic>>[].obs;
   TextEditingController productDiscriptionController = TextEditingController();
   TextEditingController productNameController = TextEditingController();
   TextEditingController statusController = TextEditingController();
@@ -65,6 +67,7 @@ class HomeController extends GetxController {
     super.onInit();
     getHomeData();
     getPendingTransactions();
+    fetchCategories();
     if (products.isEmpty) {
       fetchProducts();
     }
@@ -118,6 +121,27 @@ class HomeController extends GetxController {
   Rx<Uint8List?> profileImage = Rx<Uint8List?>(null);
   Rx<Uint8List?> bannerImage = Rx<Uint8List?>(null);
   Rx<Uint8List?> productImage = Rx<Uint8List?>(null);
+
+  Future<void> fetchCategories() async {
+    try {
+      final response = await _client.get('$baseUrl/product-categories');
+
+      if (response.statusCode == 200) {
+        // Verifica se o corpo da resposta é uma lista
+        if (response.data is List) {
+          categories.value = List<Map<String, dynamic>>.from(response.data);
+        } else if (response.data is Map &&
+            response.data.containsKey('categories')) {
+          categories.value =
+              List<Map<String, dynamic>>.from(response.data['categories']);
+        } else {
+          throw Exception('Estrutura de resposta inválida.');
+        }
+      } else {
+        throw Exception('Erro ao carregar categorias: ${response.statusCode}');
+      }
+    } catch (e) {}
+  }
 
   // Função para selecionar uma imagem
   Future<void> pickImage(
@@ -199,7 +223,7 @@ class HomeController extends GetxController {
           factoryId: Get.find<GlobalController>().userSession.id!,
           name: productNameController.text,
           description: productDiscriptionController.text,
-          categoryId: int.parse(categoryIdController.text.trim()),
+          categoryId: selectedCategoryId.value!,
           status: statusController.text,
           variations: [
             ProductVariationModel(
@@ -220,7 +244,8 @@ class HomeController extends GetxController {
 
       if (result.statusCode == 200 || result.statusCode == 201) {
         CustomOverlay.success("Produto cadastrado!");
-
+        base64ProductImage.value = null;
+        image.value = null;
         // Adiciona o produto recém-criado à lista de produtos
         final newProduct = ProductModel.fromJson(result.data);
         products.add(newProduct); // Adiciona o produto à lista
