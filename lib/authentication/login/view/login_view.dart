@@ -22,7 +22,7 @@ class LoginView extends GetView<LoginController> {
             Icons.arrow_back, // Ícone de voltar
             color: DesignSystemColors.primaryBlue,
           ),
-          onPressed: () => Navigator.pop(context), // Volta para a tela anterior
+          onPressed: () => Get.back(), // Volta para a tela anterior
         ),
       ),
       body: Obx(

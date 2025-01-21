@@ -10,17 +10,25 @@ class GlobalController extends GetxController {
   static const String _keyUserSession = 'user_session';
 
   Future<void> saveUserSession(Map<String, dynamic> session) async {
-    userSession = userSession.copyWith(
-      id: session["id"],
-      businessName: session["businessName"],
-      email: session["email"],
-      profileImage: session["profileImage"],
-      coverImage: session["coverImage"],
-      minOrderValue: session["minOrderValue"],
-    );
+    try {
+      print('Mapa recebido pelo saveUserSession: $session');
 
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyUserSession, jsonEncode(userSession.toMap()));
+      userSession = userSession.copyWith(
+        id: session["id"] ?? userSession.id,
+        businessName: session["businessName"] ?? userSession.businessName,
+        email: session["email"] ?? userSession.email,
+        profileImage: session["profileImage"] ?? userSession.profileImage,
+        coverImage: session["coverImage"] ?? userSession.coverImage,
+      );
+
+      print('Salvando sessão: ${userSession.toMapForSession()}');
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+          _keyUserSession, jsonEncode(userSession.toMapForSession()));
+    } catch (e) {
+      print('Erro ao salvar sessão: $e');
+    }
   }
 
   Future<GlobalControllerModel?> getUserSession() async {
@@ -37,7 +45,18 @@ class GlobalController extends GetxController {
   }
 
   Future<void> clearUserSession() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_keyUserSession);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+
+      // Remove apenas os dados da sessão do cache
+      await prefs.remove(_keyUserSession);
+
+      // Reseta o modelo de sessão em memória para o estado vazio
+      userSession = GlobalControllerModel.empty();
+
+      print('Sessão do usuário limpa com sucesso.');
+    } catch (e) {
+      print('Erro ao limpar a sessão do usuário: $e');
+    }
   }
 }

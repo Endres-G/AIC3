@@ -15,30 +15,36 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      textColor: Colors.white,
-      onPressed: onClick,
-      child: Container(
-        width: 253,
-        height: 58,
-        decoration: BoxDecoration(
-          gradient: isGradient
-              ? const LinearGradient(
-                  colors: [
-                    DesignSystemColors.primaryBlue,
-                    DesignSystemColors.secundaryBlue,
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : null,
-          color: !isGradient ? DesignSystemColors.primaryBlue : null,
-          borderRadius: BorderRadius.circular(12), // Arredondamento das bordas
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(fontSize: 20),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashFactory: NoSplash.splashFactory, // Remove o efeito splash
+      ),
+      child: MaterialButton(
+        textColor: Colors.white,
+        onPressed: onClick,
+        child: Container(
+          width: 253,
+          height: 58,
+          decoration: BoxDecoration(
+            gradient: isGradient
+                ? const LinearGradient(
+                    colors: [
+                      DesignSystemColors.primaryBlue,
+                      DesignSystemColors.secundaryBlue,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+                : null,
+            color: !isGradient ? DesignSystemColors.primaryBlue : null,
+            borderRadius:
+                BorderRadius.circular(12), // Arredondamento das bordas
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 20),
+            ),
           ),
         ),
       ),

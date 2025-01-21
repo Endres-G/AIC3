@@ -28,21 +28,31 @@ class LoginController extends GetxController {
 
   Future<void> login() async {
     try {
-      final result = await _client.post("$baseUrl/auth/login",
+      final resultado = await _client.post("$baseUrl/auth/login",
           data: AuthModel(
                   email: emailController.text,
                   password: passwordController.text,
                   userType: "factory")
               .loginToJson());
 
-      if (result.statusCode == 200 || result.statusCode == 201) {
-        await Get.find<GlobalController>().saveUserSession(result.data);
+      if (resultado.statusCode == 200 || resultado.statusCode == 201) {
+        final result = await _client.get(
+          "$baseUrl/factories/${resultado.data["id"]}",
+        );
+        print(result.data);
+        print(result.statusCode);
 
+        if (result.statusCode == 200 || result.statusCode == 201) {
+          await Get.find<GlobalController>().saveUserSession(result.data);
+        } else {
+          CustomOverlay.error(
+              "Erro ao carregar as informações. Status: ${result.statusCode}");
+        }
         CustomOverlay.success("logado!!");
         Get.offAndToNamed(AppRoutes.homePageView);
       }
     } on Exception catch (e) {
-      CustomOverlay.error("Erro ao logar!");
+      CustomOverlay.error(e.toString());
     }
   }
 }

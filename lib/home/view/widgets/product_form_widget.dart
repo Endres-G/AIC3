@@ -1,5 +1,7 @@
 import 'package:aic_lll/core/themes/design_system.dart';
+import 'package:aic_lll/core/widgets/custom_dropdown.dart';
 import 'package:aic_lll/core/widgets/custom_textfield.dart';
+import 'package:aic_lll/core/widgets/loading_widget.dart';
 import 'package:aic_lll/core/widgets/primary_button.dart';
 import 'package:aic_lll/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ class ProductFormWidget extends StatelessWidget {
     super.key,
     required this.controller,
   });
+
   final HomeController controller;
 
   // Função para abrir o seletor de cor
@@ -78,17 +81,25 @@ class ProductFormWidget extends StatelessWidget {
               hint: "Descrição do produto",
               controller: controller.productDiscriptionController,
             ),
-            CustomTextfield(
-              title: "Identificação da categoria",
-              hint: "id",
-              controller: controller.categoryIdController,
+            // Dropdown de categorias
+
+            CustomDropdown(
+              title: 'Categoria',
+              hint: 'Selecione uma categoria',
+              value: controller.selectedCategoryId.value,
+              items: controller.categories,
+              onChanged: (value) {
+                if (value != null) {
+                  controller.selectedCategoryId.value = value;
+                }
+              },
             ),
+
             CustomTextfield(
               title: "status",
               hint: "status",
               controller: controller.statusController,
             ),
-            const SizedBox(height: 50),
             CustomTextfield(
               title: "Preço",
               hint: "Preço",
@@ -136,14 +147,18 @@ class ProductFormWidget extends StatelessWidget {
               hint: "Estoque",
               controller: controller.productStockController,
             ),
+            const SizedBox(height: 20),
             ListTile(
               leading: const Icon(Icons.attach_file),
               title: const Text("Escolha a imagem do produto"),
-              onTap: () => controller.pickImage(),
+              onTap: () =>
+                  controller.pickImage(isProfile: false, isProduct: true),
               trailing: Obx(() {
-                if (controller.image.value == null) {
+                if (controller.productImage.value == null) {
+                  print("PARECE ERRADO");
                   return const SizedBox();
                 }
+                print("PARECE CERT");
                 return controller.bytes.value != null
                     ? Image.memory(
                         controller.bytes.value!,
@@ -152,6 +167,7 @@ class ProductFormWidget extends StatelessWidget {
                     : const SizedBox();
               }),
             ),
+            const SizedBox(height: 20),
             PrimaryButton(
               onClick: () => controller.createProduct(),
               text: "ENVIAR",

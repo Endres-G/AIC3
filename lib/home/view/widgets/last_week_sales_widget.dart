@@ -14,7 +14,7 @@ class LastWeekSalesWidget extends StatelessWidget {
   });
 
   final int value;
-  final String icon; // Caminho do SVG como String
+  final String icon;
   final String text;
   final Color cardColor;
   final Color iconColor;
