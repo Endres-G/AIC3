@@ -104,19 +104,6 @@ class HomePageView extends GetView<HomeController> {
                       onPressed: () => _onItemTapped(2),
                     ),
                   ),
-                  // Obx(
-                  //   () => IconButton(
-                  //     icon: SvgPicture.asset(
-                  //       AppAssets.salesIcon,
-                  //       height: 24,
-                  //       width: 24,
-                  //       color: controller.currentIndex.value == 3
-                  //           ? Colors.blue
-                  //           : Colors.black,
-                  //     ),
-                  //     onPressed: () => _onItemTapped(3),
-                  //   ),
-                  // ),
                   Obx(
                     () => IconButton(
                       icon: SvgPicture.asset(
